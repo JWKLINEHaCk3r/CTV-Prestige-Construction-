@@ -110,7 +110,7 @@
             }
         });
 
-        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const fileInput = document.getElementById('imageUpload');
@@ -122,13 +122,9 @@
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const imageData = {
-                    url: e.target.result,
-                    name: nameInput.value || 'Project Image',
-                    timestamp: new Date().toISOString()
-                };
+            try {
+                // Process image locally
+                const imageData = await processImageLocally(file, nameInput.value);
                 
                 // Save to localStorage
                 const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
@@ -143,9 +139,11 @@
                 
                 showUploadMessage('Image uploaded successfully!', false);
                 loadCurrentImages();
-            };
-            
-            reader.readAsDataURL(file);
+                
+            } catch (error) {
+                console.error('Upload failed:', error);
+                showUploadMessage('Upload failed: ' + error.message, true);
+            }
         });
 
         function showDashboard() {
@@ -214,6 +212,35 @@
             localStorage.setItem('galleryImages', JSON.stringify(images));
             loadCurrentImages();
             showUploadMessage('Image deleted successfully.', false);
+        }
+
+        /**
+         * Process image using local storage
+         * @param {File} imageFile - The image file
+         * @param {string} imageName - Optional image description
+         * @returns {Promise<Object>} - Processed image data
+         */
+        async function processImageLocally(imageFile, imageName) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const imageData = {
+                        url: e.target.result,
+                        name: imageName || imageFile.name,
+                        timestamp: new Date().toISOString(),
+                        processed: false
+                    };
+                    
+                    resolve(imageData);
+                };
+                
+                reader.onerror = function(error) {
+                    reject(new Error('Failed to read image file: ' + error));
+                };
+                
+                reader.readAsDataURL(imageFile);
+            });
         }
 
         // Initialize
