@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - CTV Prestige Construction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Simple navigation for admin pages -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.png" alt="CTV Prestige Construction Logo" class="site-logo" />
+                <span class="nav-tagline">Admin Portal</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Back to Site</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Login Form -->
+    <div class="admin-container">
+        <h2>Admin Login</h2>
+        <form id="loginForm" class="admin-form">
+            <input 
+                type="password" 
+                id="adminPassword" 
+                class="admin-input" 
+                placeholder="Enter admin password" 
+                required
+            >
+            <button type="submit" class="admin-button">Login</button>
+        </form>
+        <div id="loginMessage" style="margin-top: 1rem; color: #dc2626; display: none;"></div>
+    </div>
+
+    <!-- Admin Dashboard (hidden until login) -->
+    <div id="adminDashboard" class="upload-container" style="display: none;">
+        <h2>Photo Upload Dashboard</h2>
+        <p>Upload images to display on the website gallery</p>
+        
+        <form id="uploadForm" class="upload-form">
+            <input 
+                type="file" 
+                id="imageUpload" 
+                accept="image/*" 
+                class="admin-input"
+                required
+            >
+            <input 
+                type="text" 
+                id="imageName" 
+                class="admin-input" 
+                placeholder="Image description (optional)"
+            >
+            <button type="submit" class="admin-button">Upload Image</button>
+        </form>
+
+        <div id="uploadPreview" class="upload-preview" style="display: none;"></div>
+        <div id="uploadMessage" style="margin-top: 1rem;"></div>
+
+        <div style="margin-top: 2rem; border-top: 2px solid #e2e8f0; padding-top: 2rem;">
+            <h3>Current Gallery Images</h3>
+            <div id="currentImages" style="margin-top: 1rem;">
+                <!-- Images will be listed here -->
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem;">
+            <button onclick="logout()" class="admin-button" style="background: #dc2626;">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Simple password authentication
+        const ADMIN_PASSWORD = 'ctvadmin2024'; // Change this to your desired password
+        
+        // Check if already logged in
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            showDashboard();
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
+            } else {
+                showMessage('Invalid password. Please try again.', true);
+            }
+        });
+
+        // Image upload functionality
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const preview = document.getElementById('uploadPreview');
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    preview.style.display = 'block';
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fileInput = document.getElementById('imageUpload');
+            const nameInput = document.getElementById('imageName');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showUploadMessage('Please select an image to upload.', true);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = {
+                    url: e.target.result,
+                    name: nameInput.value || 'Project Image',
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Save to localStorage
+                const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+                existingImages.push(imageData);
+                localStorage.setItem('galleryImages', JSON.stringify(existingImages));
+                
+                // Clear form
+                fileInput.value = '';
+                nameInput.value = '';
+                document.getElementById('uploadPreview').style.display = 'none';
+                document.getElementById('uploadPreview').innerHTML = '';
+                
+                showUploadMessage('Image uploaded successfully!', false);
+                loadCurrentImages();
+            };
+            
+            reader.readAsDataURL(file);
+        });
+
+        function showDashboard() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            document.querySelector('.admin-container h2').textContent = 'Welcome Admin';
+            loadCurrentImages();
+        }
+
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.reload();
+        }
+
+        function showMessage(message, isError) {
+            const messageDiv = document.getElementById('loginMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.color = isError ? '#dc2626' : '#059669';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function showUploadMessage(message, isError) {
+            const messageDiv = document.getElementById('uploadMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.color = isError ? '#dc2626' : '#059669';
+            messageDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        function loadCurrentImages() {
+            const container = document.getElementById('currentImages');
+            const images = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            
+            if (images.length === 0) {
+                container.innerHTML = '<p>No images uploaded yet.</p>';
+                return;
+            }
+
+            container.innerHTML = images.map((image, index) => `
+                <div style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <img src="${image.url}" alt="${image.name}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
+                        <div style="flex: 1;">
+                            <strong>${image.name}</strong>
+                            <br>
+                            <small>${new Date(image.timestamp).toLocaleDateString()}</small>
+                        </div>
+                        <button onclick="deleteImage(${index})" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteImage(index) {
+            const images = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            images.splice(index, 1);
+            localStorage.setItem('galleryImages', JSON.stringify(images));
+            loadCurrentImages();
+            showUploadMessage('Image deleted successfully.', false);
+        }
+
+        // Initialize
+        if (localStorage.getItem('adminLoggedIn') === 'true') {
+            showDashboard();
+        }
+    </script>
+</body>
+</html>
