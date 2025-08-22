@@ -105,15 +105,21 @@ body {
 
 .site-logo {
     height: 64px;
-    width: auto;
+    width: 64px;
     filter: drop-shadow(0 4px 12px rgba(255, 119, 0, 0.3));
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    max-width: 64px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 119, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px;
+    object-fit: contain;
 }
 
 .site-logo:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 6px 16px rgba(255, 119, 0, 0.5));
+    transform: scale(1.08);
+    filter: drop-shadow(0 8px 20px rgba(255, 119, 0, 0.6));
+    border-color: rgba(255, 119, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* SVG-specific styling */
@@ -200,6 +206,39 @@ body {
     position: relative;
     z-index: 2;
     max-width: 800px;
+}
+
+.hero-logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-logo-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    border: 3px solid var(--primary-orange);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 25px rgba(255, 119, 0, 0.4));
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    animation: heroLogoFloat 3s ease-in-out infinite;
+}
+
+.hero-logo-img:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-orange);
+    filter: drop-shadow(0 12px 35px rgba(255, 119, 0, 0.6));
+}
+
+@keyframes heroLogoFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .hero-content h1 {
@@ -688,6 +727,12 @@ section {
         padding: 120px 20px 80px;
     }
     
+    .hero-logo-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 16px;
+    }
+    
     .hero-content h1 {
         font-size: 2rem;
     }
@@ -760,6 +805,12 @@ section {
     .hero-content h1 {
         font-size: 1.8rem;
         line-height: 1.1;
+    }
+    
+    .hero-logo-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
     }
     
     .hero-content p {

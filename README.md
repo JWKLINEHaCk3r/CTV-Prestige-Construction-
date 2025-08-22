@@ -50,19 +50,8 @@ CTV/
 ├── script.js           # JavaScript functionality
 ├── netlify.toml        # Netlify configuration
 ├── assets/
-│   └── logo.png        # Company logo
+│   └── # Logo assets removed - ready for new logo implementation
 └── README.md           # This file
-```
-
-├── index.html          # Main landing page
-├── admin.html          # Admin login and photo upload
-├── styles.css          # Styling for both pages
-├── script.js           # JavaScript functionality
-├── netlify.toml        # Netlify configuration
-├── assets/
-│   └── logo.png        # Company logo
-└── README.md           # This file
-
 ```
 
 ## Photo Storage

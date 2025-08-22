@@ -11,10 +11,6 @@ const urlsToCache = [
   '/manifest.json',
   '/sitemap.xml',
   '/robots.txt',
-  '/assets/logo.png',
-  '/assets/favicon-32x32.png',
-  '/assets/favicon-16x16.png',
-  '/assets/apple-touch-icon.svg',
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
 ];
 

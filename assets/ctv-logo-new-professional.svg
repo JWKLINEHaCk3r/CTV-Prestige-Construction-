@@ -1,0 +1,131 @@
+<svg version="1.1" id="CTV_Logo_Professional" xmlns="http://www.w3.org/2000/svg" 
+     viewBox="0 0 400 400" xml:space="preserve">
+  
+  <defs>
+    <!-- Enhanced Gradients -->
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7700"/>
+      <stop offset="25%" stop-color="#FF8800"/>
+      <stop offset="50%" stop-color="#FF5500"/>
+      <stop offset="75%" stop-color="#FF6600"/>
+      <stop offset="100%" stop-color="#FF9930"/>
+    </linearGradient>
+    
+    <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F9FA"/>
+      <stop offset="25%" stop-color="#E9ECEF"/>
+      <stop offset="50%" stop-color="#DEE2E6"/>
+      <stop offset="75%" stop-color="#CED4DA"/>
+      <stop offset="100%" stop-color="#ADB5BD"/>
+    </linearGradient>
+    
+    <linearGradient id="blackGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="50%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+    
+    <radialGradient id="weldSparkGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="30%" stop-color="#FFFF99"/>
+      <stop offset="60%" stop-color="#FF7700"/>
+      <stop offset="100%" stop-color="#FF5500" stop-opacity="0.5"/>
+    </radialGradient>
+    
+    <!-- Shadow filters -->
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4" result="offset"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Outer Silver Ring -->
+  <circle cx="200" cy="200" r="190" fill="none" stroke="url(#silverGradient)" stroke-width="8"/>
+  <circle cx="200" cy="200" r="180" fill="none" stroke="#CED4DA" stroke-width="2"/>
+  
+  <!-- Inner Orange Ring -->
+  <circle cx="200" cy="200" r="170" fill="none" stroke="url(#orangeGradient)" stroke-width="6"/>
+  
+  <!-- Black Background Circle -->
+  <circle cx="200" cy="200" r="160" fill="url(#blackGradient)"/>
+  
+  <!-- Professional Welder Figure -->
+  <g transform="translate(200,120)" filter="url(#dropShadow)">
+    <!-- Welder Body -->
+    <ellipse cx="0" cy="25" rx="18" ry="30" fill="#4A5568"/>
+    <!-- Welder Head/Helmet -->
+    <circle cx="0" cy="0" r="15" fill="#2D3748"/>
+    <!-- Helmet Visor -->
+    <rect x="-12" y="-3" width="24" height="6" rx="2" fill="#1A202C"/>
+    <rect x="-8" y="-1" width="16" height="2" rx="1" fill="#4299E1" opacity="0.6"/>
+    <!-- Arms -->
+    <ellipse cx="-12" cy="20" rx="6" ry="12" fill="#4A5568"/>
+    <ellipse cx="12" cy="20" rx="6" ry="12" fill="#4A5568"/>
+    <!-- Welding Tool -->
+    <rect x="8" y="25" width="10" height="4" rx="1" fill="url(#silverGradient)"/>
+    <rect x="18" y="26" width="6" height="2" fill="#2D3748"/>
+    <!-- Welding Spark -->
+    <circle cx="24" cy="27" r="4" fill="url(#weldSparkGrad)">
+      <animate attributeName="r" values="3;6;3" dur="1.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="1.2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Additional sparks -->
+    <circle cx="28" cy="25" r="2" fill="#FFFF99" opacity="0.8">
+      <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="26" cy="30" r="1.5" fill="#FF7700" opacity="0.7">
+      <animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- CTV Text - Large and Professional -->
+  <g transform="translate(200,240)" filter="url(#dropShadow)">
+    <!-- C -->
+    <path d="M-80,-10 Q-95,-20 -70,-20 Q-45,-20 -45,-10 L-45,0 Q-45,10 -70,10 Q-95,10 -80,-10 Z" 
+          fill="url(#orangeGradient)" stroke="#FF5500" stroke-width="2"/>
+    
+    <!-- T -->
+    <rect x="-25" y="-20" width="30" height="8" rx="2" fill="url(#orangeGradient)"/>
+    <rect x="-10" y="-20" width="10" height="30" rx="2" fill="url(#orangeGradient)"/>
+    
+    <!-- V -->
+    <path d="M20,-20 L40,10 L50,10 L25,-30 L15,-30 L-10,10 L0,10 Z" 
+          fill="url(#silverGradient)" stroke="#ADB5BD" stroke-width="2"/>
+  </g>
+  
+  <!-- Metal Beam/Pipe -->
+  <rect x="100" y="300" width="200" height="20" rx="4" fill="url(#silverGradient)" stroke="#ADB5BD" stroke-width="1"/>
+  
+  <!-- Welding Cross Symbol -->
+  <g transform="translate(200,310)">
+    <rect x="-15" y="-2" width="30" height="4" rx="1" fill="url(#silverGradient)"/>
+    <rect x="-2" y="-15" width="4" height="30" rx="1" fill="url(#silverGradient)"/>
+  </g>
+  
+  <!-- Five Professional Stars -->
+  <g transform="translate(200,350)">
+    <g transform="translate(-40,0)">
+      <path d="M0,-6 L2,-2 L6,-2 L3,1 L4,5 L0,3 L-4,5 L-3,1 L-6,-2 L-2,-2 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+    </g>
+    <g transform="translate(-20,0)">
+      <path d="M0,-6 L2,-2 L6,-2 L3,1 L4,5 L0,3 L-4,5 L-3,1 L-6,-2 L-2,-2 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+    </g>
+    <g transform="translate(0,0)">
+      <path d="M0,-8 L2.5,-2.5 L8,-2.5 L4,1.5 L5.5,7 L0,4 L-5.5,7 L-4,1.5 L-8,-2.5 L-2.5,-2.5 Z" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+    <g transform="translate(20,0)">
+      <path d="M0,-6 L2,-2 L6,-2 L3,1 L4,5 L0,3 L-4,5 L-3,1 L-6,-2 L-2,-2 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+    </g>
+    <g transform="translate(40,0)">
+      <path d="M0,-6 L2,-2 L6,-2 L3,1 L4,5 L0,3 L-4,5 L-3,1 L-6,-2 L-2,-2 Z" fill="#FFD700" stroke="#FFA500" stroke-width="0.5"/>
+    </g>
+  </g>
+  
+</svg>
