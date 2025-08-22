@@ -1,67 +1,83 @@
-# Image Upload Guide for CTV Prestige Construction
+# Image Management Guide for CTV Prestige Construction
 
-## How to Add Pictures to the Website
+## How to Add Photos to the Website
 
-### Step 1: Access the Admin Panel
+### Option 1: Direct File Upload (Recommended)
 
-1. Go to `https://your-domain.com/admin.html` (or open `admin.html` locally)
-2. Login with the password: `ctvadmin2024`
+1. **Navigate to the sample photos folder**: 
+   - Go to `assets/sample-photos/` directory
+   - Choose the appropriate category folder:
+     - `welding/` - For welding project photos
+     - `container-repair/` - For container repair photos
+     - `pressure-washing/` - For pressure washing photos
 
-### Step 2: Upload Images
+2. **Add your photos**:
+   - Copy your image files directly into the appropriate folder
+   - Supported formats: JPG, PNG, WebP
+   - Recommended size: 800x600 pixels
+   - File size: Under 1MB each
 
-1. Click "Choose File" to select an image from your computer
-2. (Optional) Add a description for the image
-3. Click "Upload Image" to save it
+3. **Update the gallery**:
+   - Edit `index.html` and update the image `src` attributes to point to your new photos
+   - Example: `assets/sample-photos/welding/your-photo-name.jpg`
 
-### Step 3: View Images on Website
+### Option 2: Admin Panel (LocalStorage - Limited Use)
 
-- Uploaded images will automatically appear in the gallery section of the main website
-- Images are stored in your browser's localStorage
+For quick testing or temporary images:
 
-## Important Notes
+1. Go to `admin.html` (or your domain URL with `/admin.html`)
+2. Login with password: `ctvadmin2024`
+3. Upload images (stored in browser localStorage)
 
-### Storage Limitations
+⚠️ **Note**: Admin panel images are temporary and only visible in the current browser.
 
-- Browser localStorage has a limit of ~5-10MB
-- Each image is stored as base64 (larger than original file)
-- Recommended: Keep images under 1MB each
-- For many images, consider using a proper backend
+## Image Requirements
 
-### Browser Compatibility
+- **Formats**: JPG, PNG, WebP
+- **Size**: 800x600 pixels recommended
+- **File Size**: Under 1MB per image
+- **Naming**: Use descriptive names (e.g., `welding-project-1.jpg`)
 
-- Images are stored per browser/device
-- If you clear browser data, images will be lost
-- For permanent storage, implement a backend solution
+## Folder Structure
 
-### Image Requirements
+```
+assets/
+├── sample-photos/
+│   ├── welding/           # Welding project photos
+│   ├── container-repair/  # Container repair photos
+│   └── pressure-washing/  # Pressure washing photos
+│   └── README.md         # This guide
+```
 
-- Supported formats: JPG, PNG, GIF, WebP
-- Optimal size: 800x600 pixels or similar
-- File size: Under 1MB recommended
+## Best Practices
+
+1. **Organize by category**: Keep photos in their respective folders
+2. **Use descriptive filenames**: Helps with SEO and organization
+3. **Optimize images**: Compress images before uploading
+4. **Maintain consistency**: Similar sizes and aspect ratios work best
 
 ## Troubleshooting
 
 ### Images Not Showing
+- Check file paths in HTML
+- Ensure images are in correct folders
+- Verify file permissions
 
-- Check if browser allows localStorage
-- Clear browser cache and reload
-- Try a different browser
+### Quality Issues
+- Use image editing software to resize and compress
+- Maintain aspect ratio when resizing
 
-### Upload Fails
+## Production Recommendations
 
-- Check file size (keep under 5MB)
-- Ensure you have storage space available
-- Check browser console for errors
-
-## Future Improvements
-
-For production use with many images, consider:
-
+For a production website with many images, consider:
 1. Cloud storage (AWS S3, Google Cloud Storage)
-2. Database for image metadata
-3. CDN for faster delivery
-4. Image compression before upload
+2. CDN for faster delivery
+3. Automated image optimization
+4. Database for image management
 
 ## Support
 
-For technical issues with image uploads, check the browser console for error messages.
+For technical assistance:
+1. Check browser console for errors
+2. Verify file paths and names
+3. Ensure images are in correct format and size
