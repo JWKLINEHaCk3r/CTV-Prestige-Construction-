@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - CTV Prestige Construction</title>
+    <meta name="description" content="Admin portal for CTV Prestige Construction photo management">
+    <meta name="keywords" content="admin, photo upload, gallery management">
+    <meta name="author" content="CTV Prestige Construction">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-32x32.svg" sizes="32x32">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon-16x16.svg" sizes="16x16">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.svg">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +25,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/logo.png" alt="CTV Prestige Construction Logo" class="site-logo" />
+                <img src="assets/IMG_8691.PNG" alt="CTV Prestige Construction Logo" class="site-logo" />
                 <span class="nav-tagline">Admin Portal</span>
             </div>
             <div class="nav-menu">
@@ -33,11 +47,11 @@
             >
             <button type="submit" class="admin-button">Login</button>
         </form>
-        <div id="loginMessage" style="margin-top: 1rem; color: #dc2626; display: none;"></div>
+        <div id="loginMessage" class="login-message"></div>
     </div>
 
     <!-- Admin Dashboard (hidden until login) -->
-    <div id="adminDashboard" class="upload-container" style="display: none;">
+    <div id="adminDashboard" class="upload-container">
         <h2>Photo Upload Dashboard</h2>
         <p>Upload images to display on the website gallery</p>
         
@@ -48,6 +62,8 @@
                 accept="image/*" 
                 class="admin-input"
                 required
+                placeholder="Select an image to upload"
+                title="Select an image to upload"
             >
             <input 
                 type="text" 
@@ -58,18 +74,18 @@
             <button type="submit" class="admin-button">Upload Image</button>
         </form>
 
-        <div id="uploadPreview" class="upload-preview" style="display: none;"></div>
-        <div id="uploadMessage" style="margin-top: 1rem;"></div>
+        <div id="uploadPreview" class="upload-preview"></div>
+        <div id="uploadMessage"></div>
 
-        <div style="margin-top: 2rem; border-top: 2px solid #e2e8f0; padding-top: 2rem;">
+        <div class="gallery-section">
             <h3>Current Gallery Images</h3>
-            <div id="currentImages" style="margin-top: 1rem;">
+            <div id="currentImages">
                 <!-- Images will be listed here -->
             </div>
         </div>
 
-        <div style="margin-top: 2rem;">
-            <button onclick="logout()" class="admin-button" style="background: #dc2626;">Logout</button>
+        <div class="logout-container">
+            <button onclick="logout()" class="admin-button logout-button">Logout</button>
         </div>
     </div>
 
@@ -182,7 +198,15 @@
 
         function loadCurrentImages() {
             const container = document.getElementById('currentImages');
-            const images = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            if (!container) return;
+            
+            let images;
+            try {
+                images = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            } catch (error) {
+                console.error('Error parsing gallery images:', error);
+                images = [];
+            }
             
             if (images.length === 0) {
                 container.innerHTML = '<p>No images uploaded yet.</p>';
@@ -192,11 +216,11 @@
             container.innerHTML = images.map((image, index) => `
                 <div style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px;">
                     <div style="display: flex; align-items: center; gap: 1rem;">
-                        <img src="${image.url}" alt="${image.name}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
+                        <img src="${image.url || ''}" alt="${image.name || 'Image'}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
                         <div style="flex: 1;">
-                            <strong>${image.name}</strong>
+                            <strong>${image.name || 'Unnamed Image'}</strong>
                             <br>
-                            <small>${new Date(image.timestamp).toLocaleDateString()}</small>
+                            <small>${image.timestamp ? new Date(image.timestamp).toLocaleDateString() : 'Unknown date'}</small>
                         </div>
                         <button onclick="deleteImage(${index})" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
                             Delete

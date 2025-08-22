@@ -1,87 +1,80 @@
 # CTV Prestige Construction - Deployment Checklist
 
-## ✅ Pre-Deployment Verification
+## Pre-Deployment Testing
 
-### Codebase Cleanliness
-- [x] **No AI/ML References**: Confirmed no LiteLLM, Openrouter, or AI service code
-- [x] **No API Keys**: No external API keys or sensitive credentials in code
-- [x] **Local Processing**: All image processing is done locally via localStorage
-- [x] **Clean Dependencies**: No external dependencies except Netlify deployment
+### Performance Testing
+- [ ] Run Lighthouse audit (target: 90+ scores)
+- [ ] Test Core Web Vitals (LCP, FID, CLS)
+- [ ] Verify mobile responsiveness
+- [ ] Test offline functionality
+- [ ] Check loading times on slow connections
+
+### SEO Verification
+- [ ] Validate structured data with Google Rich Results Test
+- [ ] Check meta tags and descriptions
+- [ ] Verify sitemap.xml accessibility
+- [ ] Test robots.txt functionality
+- [ ] Check canonical URLs
 
 ### Functionality Testing
-- [ ] **Admin Login**: Test admin login functionality with password `ctvadmin2024`
-- [ ] **Image Upload**: Test local image upload and processing
-- [ ] **Gallery Display**: Verify images display correctly on main page
-- [ ] **Responsive Design**: Test on mobile, tablet, and desktop
-- [ ] **Email Links**: Verify all email links work correctly
-- [ ] **Phone Links**: Verify phone number links work on mobile
+- [ ] Test all navigation links
+- [ ] Verify contact forms/email links
+- [ ] Test gallery functionality
+- [ ] Check admin panel access
+- [ ] Verify service worker registration
 
-### Browser Compatibility
-- [ ] **Chrome**: Test on latest Chrome version
-- [ ] **Firefox**: Test on latest Firefox version
-- [ ] **Safari**: Test on latest Safari version
-- [ ] **Mobile Browsers**: Test on iOS Safari and Chrome Mobile
+## Deployment Steps
 
-## 🚀 Deployment Steps
+### Domain & Hosting
+- [ ] Configure custom domain (ctvprestigeconstruction.com)
+- [ ] Set up SSL certificate
+- [ ] Configure DNS settings
+- [ ] Set up CDN for static assets
 
-### Netlify Deployment
-1. **Connect Repository**: Connect GitHub repo to Netlify
-2. **Build Settings**: 
-   - Build command: (leave empty - static site)
-   - Publish directory: `/` (root directory)
-3. **Environment Variables**: None needed (no external APIs)
-4. **Custom Domain**: Configure if using custom domain
-5. **SSL**: Enable HTTPS automatically
+### Server Configuration
+- [ ] Enable GZIP compression
+- [ ] Set proper cache headers:
+  - CSS/JS: 1 year cache
+  - Images: 6 months cache
+  - HTML: no cache or short cache
+- [ ] Configure redirects (www to non-www or vice versa)
+- [ ] Set up security headers
 
-### Post-Deployment Verification
-- [ ] **Live Site Access**: Verify site loads at deployed URL
-- [ ] **Admin Access**: Test admin login on live site
-- [ ] **Image Upload**: Test upload functionality on live site
-- [ ] **Gallery Sync**: Verify images sync between admin and main site
-- [ ] **Performance**: Check loading times and performance
+### Analytics & Monitoring
+- [ ] Set up Google Analytics
+- [ ] Configure Google Search Console
+- [ ] Set up performance monitoring
+- [ ] Configure error tracking
 
-## 🔧 Troubleshooting Common Issues
+## Post-Deployment
 
-### AI Error 404 (litellm.NotFoundError)
-**Cause**: Cached service workers or browser data from previous AI version
-**Solution**: 
-1. Run service worker cleanup script
-2. Clear browser cache and localStorage
-3. Hard refresh (Ctrl+F5) on deployed site
+### Verification
+- [ ] Test live site functionality
+- [ ] Verify SSL certificate
+- [ ] Check mobile performance
+- [ ] Test contact forms
+- [ ] Verify search engine indexing
 
-### Image Upload Issues
-**Check**: 
-- File size under 5MB
-- Supported formats: JPG, PNG, GIF
-- Browser storage space available
+### SEO Submission
+- [ ] Submit sitemap to Google Search Console
+- [ ] Submit sitemap to Bing Webmaster Tools
+- [ ] Request indexing of important pages
 
-### Admin Login Issues
-**Verify**: 
-- Correct password: `ctvadmin2024`
-- localStorage is enabled in browser
-- No browser extensions blocking functionality
+### Monitoring
+- [ ] Set up uptime monitoring
+- [ ] Configure performance alerts
+- [ ] Set up backup procedures
 
-## 📊 Monitoring & Maintenance
+## Performance Targets
+- **Lighthouse Scores**: 90+ across all categories
+- **LCP**: < 2.5 seconds
+- **FID**: < 100ms  
+- **CLS**: < 0.1
+- **TTFB**: < 200ms
+- **Full Load**: < 3 seconds
 
-### Regular Checks
-- [ ] Monthly: Test all functionality
-- [ ] Monthly: Clear browser cache if needed
-- [ ] Quarterly: Update contact information if changed
-- [ ] Annually: Review and update password
-
-### Backup Strategy
-- **Local Backup**: Keep local copy of codebase
-- **GitHub Backup**: Code is version controlled on GitHub
-- **Image Backup**: Consider periodic export of gallery images
-
-## 🆘 Support Contact
-
-For technical support or issues:
-- **Email**: ctvprestigeconstruction@gmail.com  
-- **Phone**: (386) 747-5994
-- **GitHub**: Check repository issues
-
----
-
-**Last Verified**: $(date +%Y-%m-%d)
-**Status**: ✅ Ready for Production Deployment
+## SEO Targets
+- **Mobile-Friendly**: Yes
+- **Indexable**: All important pages
+- **Structured Data**: Validated
+- **Page Speed**: Fast (Google standards)

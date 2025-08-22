@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://ctvprestigeconstruction.com/sitemap.xml
+
+# Crawl delay to be respectful to the server
+Crawl-delay: 1
