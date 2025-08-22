@@ -1,0 +1,123 @@
+<svg version="1.1" id="CTV_Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+     viewBox="0 0 800 800" xml:space="preserve">
+  
+  <!-- Background Circle -->
+  <circle cx="400" cy="400" r="390" fill="#000000" stroke="#C0C0C0" stroke-width="10"/>
+  
+  <!-- Outer Ring -->
+  <circle cx="400" cy="400" r="380" fill="none" stroke="url(#orangeGradient)" stroke-width="12"/>
+  
+  <!-- Inner Ring -->
+  <circle cx="400" cy="400" r="350" fill="none" stroke="#C0C0C0" stroke-width="4"/>
+  
+  <!-- Gradients Definition -->
+  <defs>
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF7700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FF5500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF9930;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8E8E8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C0C0C0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A8A8A8;stop-opacity:1" />
+    </linearGradient>
+    
+    <radialGradient id="sparkGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#FFFF00;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#FF7700;stop-opacity:0.3" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Welder Figure -->
+  <g id="welder" transform="translate(400,200)">
+    <!-- Welder Body -->
+    <ellipse cx="0" cy="50" rx="35" ry="60" fill="#4A4A4A"/>
+    
+    <!-- Welder Head/Helmet -->
+    <circle cx="0" cy="0" r="25" fill="#2A2A2A"/>
+    <rect x="-20" y="-5" width="40" height="15" rx="3" fill="#1A1A1A"/>
+    <rect x="-15" y="-2" width="30" height="8" rx="2" fill="#0A0A0A"/>
+    
+    <!-- Arms -->
+    <ellipse cx="-25" cy="35" rx="12" ry="25" fill="#4A4A4A"/>
+    <ellipse cx="25" cy="35" rx="12" ry="25" fill="#4A4A4A"/>
+    
+    <!-- Welding Tool in Right Hand -->
+    <rect x="15" y="50" width="20" height="4" rx="2" fill="url(#silverGradient)"/>
+    
+    <!-- Welding Spark -->
+    <circle cx="35" cy="52" r="8" fill="url(#sparkGradient)">
+      <animate attributeName="r" values="6;12;6" dur="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Spark Rays -->
+    <g opacity="0.8">
+      <line x1="35" y1="44" x2="35" y2="34" stroke="#FFFF00" stroke-width="2">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+      </line>
+      <line x1="43" y1="52" x2="53" y2="52" stroke="#FFFF00" stroke-width="2">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite"/>
+      </line>
+      <line x1="41" y1="46" x2="48" y2="39" stroke="#FFFF00" stroke-width="2">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite"/>
+      </line>
+      <line x1="29" y1="46" x2="22" y2="39" stroke="#FFFF00" stroke-width="2">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="1.1s" repeatCount="indefinite"/>
+      </line>
+    </g>
+  </g>
+  
+  <!-- CTV Text -->
+  <g id="ctvText">
+    <!-- C -->
+    <path d="M150 420 Q150 380 180 380 Q210 380 210 400 L210 410 Q210 430 180 430 Q150 430 150 420 Z" 
+          fill="url(#orangeGradient)" stroke="#FF5500" stroke-width="2"/>
+    <path d="M170 400 Q190 400 190 410" fill="none" stroke="#000000" stroke-width="3"/>
+    
+    <!-- T -->
+    <rect x="240" y="380" width="60" height="15" fill="url(#orangeGradient)"/>
+    <rect x="260" y="380" width="20" height="50" fill="url(#orangeGradient)"/>
+    
+    <!-- V -->
+    <path d="M340 380 L360 430 L380 380 L400 380 L370 450 L350 450 L320 380 Z" 
+          fill="url(#silverGradient)" stroke="#A8A8A8" stroke-width="2"/>
+  </g>
+  
+  <!-- Metal Bar/Beam -->
+  <rect x="200" y="480" width="400" height="40" rx="5" fill="url(#silverGradient)" stroke="#A8A8A8" stroke-width="2"/>
+  
+  <!-- Cross/Plus Symbol -->
+  <g id="crossSymbol" transform="translate(400,500)">
+    <rect x="-30" y="-5" width="60" height="10" fill="url(#silverGradient)"/>
+    <rect x="-5" y="-30" width="10" height="60" fill="url(#silverGradient)"/>
+  </g>
+  
+  <!-- 5 Stars Rating -->
+  <g id="stars" transform="translate(400,650)">
+    <g id="star1" transform="translate(-80,0)">
+      <path d="M0,-15 L4,-5 L15,-5 L7,2 L10,12 L0,7 L-10,12 L-7,2 L-15,-5 L-4,-5 Z" 
+            fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+    <g id="star2" transform="translate(-40,0)">
+      <path d="M0,-15 L4,-5 L15,-5 L7,2 L10,12 L0,7 L-10,12 L-7,2 L-15,-5 L-4,-5 Z" 
+            fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+    <g id="star3" transform="translate(0,0)">
+      <path d="M0,-15 L4,-5 L15,-5 L7,2 L10,12 L0,7 L-10,12 L-7,2 L-15,-5 L-4,-5 Z" 
+            fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+    <g id="star4" transform="translate(40,0)">
+      <path d="M0,-15 L4,-5 L15,-5 L7,2 L10,12 L0,7 L-10,12 L-7,2 L-15,-5 L-4,-5 Z" 
+            fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+    <g id="star5" transform="translate(80,0)">
+      <path d="M0,-15 L4,-5 L15,-5 L7,2 L10,12 L0,7 L-10,12 L-7,2 L-15,-5 L-4,-5 Z" 
+            fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    </g>
+  </g>
+  
+</svg>
