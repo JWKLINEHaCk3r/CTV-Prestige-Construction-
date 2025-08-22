@@ -196,6 +196,15 @@
             font-size: 0.9rem;
         }
         
+        .upload-preview {
+            margin: 1rem 0;
+            display: none;
+        }
+        
+        .upload-preview img {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
         /* Responsive design for admin */
         @media (max-width: 768px) {
             .nav-container {
@@ -276,11 +285,21 @@
         <h2>Photo Upload Dashboard</h2>
         <p>Upload images to display on the website gallery</p>
         
+        <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
+            <h4 style="margin: 0 0 0.5rem 0; color: #0ea5e9;">📋 Upload Guidelines</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+                <li>Supported formats: JPG, PNG, WebP</li>
+                <li>Maximum file size: 2MB</li>
+                <li>Images will be automatically compressed and resized</li>
+                <li>Recommended: High-quality photos of your work</li>
+            </ul>
+        </div>
+        
         <form id="uploadForm" class="upload-form">
             <input 
                 type="file" 
                 id="imageUpload" 
-                accept="image/*" 
+                accept="image/jpeg,image/jpg,image/png,image/webp" 
                 class="admin-input"
                 required
                 placeholder="Select an image to upload"
@@ -300,6 +319,11 @@
 
         <div class="gallery-section">
             <h3>Current Gallery Images</h3>
+            <div style="margin-bottom: 1rem; text-align: center;">
+                <button onclick="clearAllImages()" class="admin-button" style="background: linear-gradient(135deg, #dc2626, #b91c1c); width: auto; padding: 0.5rem 1rem; font-size: 0.9rem;">
+                    Clear All Images
+                </button>
+            </div>
             <div id="currentImages">
                 <!-- Images will be listed here -->
             </div>
@@ -331,15 +355,37 @@
             }
         });
 
-        // Image upload functionality
+        // Image upload functionality with validation
         document.getElementById('imageUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
+                // Validate file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                if (!allowedTypes.includes(file.type)) {
+                    showUploadMessage('Please select a valid image file (JPG, PNG, or WebP)', true);
+                    e.target.value = '';
+                    return;
+                }
+                
+                // Validate file size (2MB limit)
+                if (file.size > 2 * 1024 * 1024) {
+                    showUploadMessage('Image too large. Please use images smaller than 2MB.', true);
+                    e.target.value = '';
+                    return;
+                }
+                
                 const preview = document.getElementById('uploadPreview');
                 const reader = new FileReader();
                 
                 reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                    preview.innerHTML = `
+                        <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                            <img src="${e.target.result}" alt="Preview" style="max-width: 200px; max-height: 150px; border-radius: 4px;">
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">
+                                ${file.name} • ${(file.size / 1024).toFixed(0)}KB
+                            </p>
+                        </div>
+                    `;
                     preview.style.display = 'block';
                 };
                 
@@ -359,8 +405,15 @@
                 return;
             }
 
+            // Show upload progress
+            showUploadMessage('Processing image...', false);
+            const uploadButton = document.querySelector('#uploadForm .admin-button');
+            const originalText = uploadButton.textContent;
+            uploadButton.textContent = 'Processing...';
+            uploadButton.disabled = true;
+
             try {
-                // Process image locally
+                // Process image locally with compression
                 const imageData = await processImageLocally(file, nameInput.value);
                 
                 // Save to localStorage
@@ -374,12 +427,16 @@
                 document.getElementById('uploadPreview').style.display = 'none';
                 document.getElementById('uploadPreview').innerHTML = '';
                 
-                showUploadMessage('Image uploaded successfully!', false);
+                showUploadMessage(`Image uploaded successfully! Compressed to ${Math.round(imageData.compressedSize/1024)}KB`, false);
                 loadCurrentImages();
                 
             } catch (error) {
                 console.error('Upload failed:', error);
                 showUploadMessage('Upload failed: ' + error.message, true);
+            } finally {
+                // Reset button
+                uploadButton.textContent = originalText;
+                uploadButton.disabled = false;
             }
         });
 
@@ -459,33 +516,159 @@
             showUploadMessage('Image deleted successfully.', false);
         }
 
+        function clearAllImages() {
+            if (confirm('Are you sure you want to delete ALL images? This cannot be undone.')) {
+                localStorage.setItem('galleryImages', '[]');
+                loadCurrentImages();
+                showUploadMessage('All images cleared successfully.', false);
+            }
+        }
+
         /**
-         * Process image using local storage
+         * Process and compress image for local storage
          * @param {File} imageFile - The image file
          * @param {string} imageName - Optional image description
          * @returns {Promise<Object>} - Processed image data
          */
         async function processImageLocally(imageFile, imageName) {
             return new Promise((resolve, reject) => {
-                const reader = new FileReader();
+                // Check file size (limit to 2MB before processing)
+                if (imageFile.size > 2 * 1024 * 1024) {
+                    reject(new Error('Image too large. Please use images smaller than 2MB.'));
+                    return;
+                }
+
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
                 
-                reader.onload = function(e) {
+                img.onload = function() {
+                    // Calculate optimal dimensions (max 800px width/height)
+                    let { width, height } = img;
+                    const maxSize = 800;
+                    
+                    if (width > maxSize || height > maxSize) {
+                        if (width > height) {
+                            height = (height * maxSize) / width;
+                            width = maxSize;
+                        } else {
+                            width = (width * maxSize) / height;
+                            height = maxSize;
+                        }
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // Draw and compress
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Convert to optimized data URL (JPEG with 0.7 quality)
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    
+                    // Check localStorage space before saving
+                    const existingData = localStorage.getItem('galleryImages') || '[]';
+                    const newImageSize = compressedDataUrl.length * 2; // Rough estimate in bytes
+                    const currentSize = existingData.length * 2;
+                    const totalSize = currentSize + newImageSize;
+                    
+                    // localStorage limit is typically 5-10MB, let's be safe with 4MB
+                    if (totalSize > 4 * 1024 * 1024) {
+                        reject(new Error('Storage limit reached. Please delete some images first.'));
+                        return;
+                    }
+                    
                     const imageData = {
-                        url: e.target.result,
+                        url: compressedDataUrl,
                         name: imageName || imageFile.name,
                         timestamp: new Date().toISOString(),
-                        processed: false
+                        originalSize: imageFile.size,
+                        compressedSize: Math.round(compressedDataUrl.length * 0.75), // Approximate
+                        dimensions: `${width}x${height}`,
+                        processed: true
                     };
                     
                     resolve(imageData);
                 };
                 
-                reader.onerror = function(error) {
-                    reject(new Error('Failed to read image file: ' + error));
+                img.onerror = function(error) {
+                    reject(new Error('Failed to load image: ' + error));
                 };
                 
-                reader.readAsDataURL(imageFile);
+                // Create object URL for the image
+                img.src = URL.createObjectURL(imageFile);
             });
+        }
+
+        // Add storage monitoring function
+        function getStorageInfo() {
+            const galleryData = localStorage.getItem('galleryImages') || '[]';
+            const sizeInBytes = galleryData.length * 2; // Rough estimate
+            const sizeInMB = (sizeInBytes / (1024 * 1024)).toFixed(2);
+            const images = JSON.parse(galleryData);
+            
+            return {
+                imageCount: images.length,
+                sizeInMB: sizeInMB,
+                percentUsed: Math.round((sizeInBytes / (4 * 1024 * 1024)) * 100)
+            };
+        }
+
+        // Enhanced loadCurrentImages with storage info
+        function loadCurrentImages() {
+            const container = document.getElementById('currentImages');
+            if (!container) return;
+            
+            let images;
+            try {
+                images = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            } catch (error) {
+                console.error('Error parsing gallery images:', error);
+                images = [];
+            }
+            
+            const storageInfo = getStorageInfo();
+            
+            // Add storage info header
+            let html = `
+                <div style="margin-bottom: 1.5rem; padding: 1rem; background: ${storageInfo.percentUsed > 80 ? '#fee2e2' : '#f0f9ff'}; border-radius: 8px; border-left: 4px solid ${storageInfo.percentUsed > 80 ? '#dc2626' : '#0ea5e9'};">
+                    <h4 style="margin: 0 0 0.5rem 0; color: ${storageInfo.percentUsed > 80 ? '#dc2626' : '#0ea5e9'};">
+                        📊 Storage Usage
+                    </h4>
+                    <p style="margin: 0; font-size: 0.9rem;">
+                        <strong>${storageInfo.imageCount} images</strong> • 
+                        <strong>${storageInfo.sizeInMB} MB used</strong> • 
+                        <strong>${storageInfo.percentUsed}% of limit</strong>
+                        ${storageInfo.percentUsed > 80 ? '<br><span style="color: #dc2626;">⚠️ Storage almost full - delete some images</span>' : ''}
+                    </p>
+                </div>
+            `;
+            
+            if (images.length === 0) {
+                html += '<p>No images uploaded yet.</p>';
+            } else {
+                html += images.map((image, index) => `
+                    <div style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <img src="${image.url || ''}" alt="${image.name || 'Image'}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
+                            <div style="flex: 1;">
+                                <strong>${image.name || 'Unnamed Image'}</strong>
+                                <br>
+                                <small style="color: #666;">
+                                    ${image.timestamp ? new Date(image.timestamp).toLocaleDateString() : 'Unknown date'}
+                                    ${image.dimensions ? ` • ${image.dimensions}` : ''}
+                                    ${image.compressedSize ? ` • ${Math.round(image.compressedSize/1024)}KB` : ''}
+                                </small>
+                            </div>
+                            <button onclick="deleteImage(${index})" style="background: #dc2626; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            container.innerHTML = html;
         }
 
         // Initialize
