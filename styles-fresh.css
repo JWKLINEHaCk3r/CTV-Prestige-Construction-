@@ -407,8 +407,8 @@ section {
 
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
 }
 
 .gallery-item {
@@ -418,6 +418,7 @@ section {
     background: var(--bg-card);
     border: 1px solid var(--border-primary);
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    aspect-ratio: 4/3;
 }
 
 .gallery-item:hover {
@@ -428,7 +429,7 @@ section {
 
 .gallery-item img {
     width: 100%;
-    height: 250px;
+    height: 100%;
     object-fit: cover;
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
@@ -644,7 +645,8 @@ section {
     }
     
     .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 0.75rem;
     }
 }
 
@@ -713,8 +715,8 @@ section {
     }
     
     .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
     }
     
     .contact-info {
@@ -852,4 +854,51 @@ section {
     .contact::before {
         display: none;
     }
+}
+
+/* Enhanced Gallery Layout - Masonry Style for Large Screens */
+@media (min-width: 1024px) {
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-auto-rows: 200px;
+        gap: 0.75rem;
+    }
+    
+    /* Make some items span multiple rows for variety */
+    .gallery-item:nth-child(3n) {
+        grid-row: span 2;
+    }
+    
+    .gallery-item:nth-child(5n) {
+        grid-row: span 2;
+    }
+    
+    .gallery-item:nth-child(7n) {
+        grid-column: span 2;
+    }
+}
+
+/* Load More Button Styling */
+.load-more-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.load-more-btn {
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 4px 16px var(--shadow-primary);
+}
+
+.load-more-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--shadow-primary);
 }

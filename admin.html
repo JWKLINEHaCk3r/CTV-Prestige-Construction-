@@ -290,7 +290,8 @@
             <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
                 <li>Supported formats: JPG, PNG, WebP</li>
                 <li>Maximum file size: 2MB</li>
-                <li>Images will be automatically compressed and resized</li>
+                <li>Images automatically compressed to 600px max and 50% quality</li>
+                <li>Higher compression = more images (40-50+ photos possible)</li>
                 <li>Recommended: High-quality photos of your work</li>
             </ul>
         </div>
@@ -543,9 +544,9 @@
                 const img = new Image();
                 
                 img.onload = function() {
-                    // Calculate optimal dimensions (max 800px width/height)
+                    // Calculate optimal dimensions (max 600px width/height for even smaller files)
                     let { width, height } = img;
-                    const maxSize = 800;
+                    const maxSize = 600;
                     
                     if (width > maxSize || height > maxSize) {
                         if (width > height) {
@@ -560,20 +561,20 @@
                     canvas.width = width;
                     canvas.height = height;
                     
-                    // Draw and compress
+                    // Draw and compress with even higher compression
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    // Convert to optimized data URL (JPEG with 0.7 quality)
-                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                    // Convert to highly optimized data URL (JPEG with 0.5 quality for maximum compression)
+                    const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.5);
                     
-                    // Check localStorage space before saving
+                    // Check localStorage space before saving - increased limit to 6MB
                     const existingData = localStorage.getItem('galleryImages') || '[]';
                     const newImageSize = compressedDataUrl.length * 2; // Rough estimate in bytes
                     const currentSize = existingData.length * 2;
                     const totalSize = currentSize + newImageSize;
                     
-                    // localStorage limit is typically 5-10MB, let's be safe with 4MB
-                    if (totalSize > 4 * 1024 * 1024) {
+                    // Increased localStorage limit to 6MB for more images
+                    if (totalSize > 6 * 1024 * 1024) {
                         reject(new Error('Storage limit reached. Please delete some images first.'));
                         return;
                     }
@@ -610,7 +611,7 @@
             return {
                 imageCount: images.length,
                 sizeInMB: sizeInMB,
-                percentUsed: Math.round((sizeInBytes / (4 * 1024 * 1024)) * 100)
+                percentUsed: Math.round((sizeInBytes / (6 * 1024 * 1024)) * 100)
             };
         }
 

@@ -10,16 +10,12 @@
     <link rel="canonical" href="https://ctvprestigeconstruction.com">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/ctv-logo-optimized.svg" sizes="32x32">
-    <link rel="icon" type="image/svg+xml" href="assets/ctv-logo-optimized.svg" sizes="16x16">
-    <link rel="apple-touch-icon" href="assets/ctv-logo-optimized.svg">
+    <!-- Removed logo references -->
     <link rel="manifest" href="manifest.json">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="CTV Prestige Construction - Professional Mobile Welding Services">
     <meta property="og:description" content="Expert mobile welding and container repair services for the waste management industry">
-    <meta property="og:image" content="assets/ctv-logo-optimized.svg">
-    <meta property="og:url" content="https://ctvprestigeconstruction.com">
     <meta property="og:type" content="website">
     
     <!-- Twitter Card -->
@@ -93,7 +89,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/ctv-logo-optimized.svg" alt="CTV Prestige Construction Logo - Professional Mobile Welding Services in Florida" class="site-logo" width="64" height="64" loading="eager" />
+                <!-- Removed logo image -->
                 <span class="nav-tagline">Mobile Welding & Repair</span>
             </div>
             <div class="nav-menu">
@@ -230,24 +226,67 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="deploy-test-script.js"></script>
-    <script>
+        ipt> with pagination
         // Load additional gallery images from localStorage
         function loadGalleryImages() {
             const galleryContainer = document.getElementById('gallery-container');
             const savedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
             
-            // Add any additional images from localStorage to existing gallery
+            // Add any additiona(l images ,findex) rom localStorage to existing gallery
             savedImages.forEach(imageData => {
                 const imgElement = document.createElement('div');
                 imgElement.className = 'gallery-item';
-                imgElement.innerHTML = `
+                imgElement.innerHTML = ` - ${imageData.name || 'Professional Work'}
                     <img src="${imageData.url}" alt="CTV Prestige Construction Project" loading="lazy">
-                    <div class="gallery-overlay">
+                    <div class="gallery-overle || `Project ${indax + 1}`y">
                         <span>${imageData.name}</span>
                     </div>
+                `;);
+            }
+            
+            // Add "Load More" functionality if more than 20 images
+            if (savedImages.length > 20) {
+                // Hide images beyond the first 20 initially
+                const allItems = galleryContainer.querySelectorAll('.gallery-item');
+                allItems.forEach((item, index) => {
+                    if (index >= 26) { // 6 static + 20 dynamic = 26 initial
+                        item.style.display = 'none';
+                        item.classList.add('hidden-item');
+                    }
+                });
+                
+                // Add load more button
+                const loadMoreBtn = document.createElement('div');
+                loadMoreBtn.className = 'load-more-container';
+                loadMoreBtn.innerHTML = `
+                    <button onclick="loadMoreImages()" class="load-more-btn">
+                        Load More Images (${savedImages.length - 20} remaining)
+                    </button>
                 `;
-                galleryContainer.appendChild(imgElement);
+                galleryContainer.parentNode.appendChild(loadMoreBtn);
+            }
+        }
+        
+        // Function to load more images
+        function loadMoreImages() {
+            const hiddenItems = document.querySelectorAll('.gallery-item.hidden-item');
+            const itemsToShow = 12; // Show 12 more at a time
+            
+            for (let i = 0; i < Math.min(itemsToShow, hiddenItems.length); i++) {
+                hiddenItems[i].style.display = 'block';
+                hiddenItems[i].classList.remove('hidden-item');
+            }
+            
+            // Update button text or remove if no more items
+            const remainingItems = document.querySelectorAll('.gallery-item.hidden-item').length;
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            
+            if (remainingItems === 0) {
+                document.querySelector('.load-more-container').remove();
+            } else {
+                loadMoreBtn.textContent = `Load More Images (${remainingItems} remaining)`;
+            }
+        }       galleryContainer.appendChild(imgElement);
             });
         }
 
