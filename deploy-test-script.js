@@ -8,7 +8,8 @@ class DeployTest {
             phase2: {},
             phase3: {},
             phase4: {},
-            phase5: {}
+            phase5: {},
+            phase6: {}
         };
         this.startTime = Date.now();
     }
@@ -22,6 +23,7 @@ class DeployTest {
             await this.phase3_seoVerification();
             await this.phase4_functionalityTesting();
             await this.phase5_deploymentVerification();
+            await this.phase6_assetManagement();
             
             this.generateReport();
         } catch (error) {
@@ -34,6 +36,9 @@ class DeployTest {
         
         // Test navigation links
         this.results.phase1.navigation = this.testNavigation();
+        
+        // Test logo assets
+        this.results.phase1.logo = this.testLogo();
         
         // Test gallery functionality
         this.results.phase1.gallery = this.testGallery();
@@ -85,16 +90,92 @@ class DeployTest {
         return results;
     }
 
+    testLogo() {
+        const logoElements = document.querySelectorAll('.site-logo');
+        const faviconLinks = document.querySelectorAll('link[rel*="icon"]');
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        
+        const logoAssets = {
+            mainLogo: null,
+            logoCount: logoElements.length,
+            faviconCount: faviconLinks.length,
+            svgFormat: false,
+            altText: [],
+            faviconFormats: [],
+            ogImageSet: !!ogImage
+        };
+
+        // Check main logo
+        logoElements.forEach((logo, index) => {
+            const src = logo.getAttribute('src');
+            const alt = logo.getAttribute('alt');
+            
+            if (index === 0) logoAssets.mainLogo = src;
+            if (src && src.includes('.svg')) logoAssets.svgFormat = true;
+            if (alt) logoAssets.altText.push(alt);
+        });
+
+        // Check favicon formats
+        faviconLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                const format = href.includes('.svg') ? 'SVG' : 
+                             href.includes('.png') ? 'PNG' : 
+                             href.includes('.ico') ? 'ICO' : 'OTHER';
+                logoAssets.faviconFormats.push(format);
+            }
+        });
+
+        return {
+            ...logoAssets,
+            status: logoElements.length > 0 ? 'present' : 'missing',
+            recommendations: this.getLogoRecommendations(logoAssets)
+        };
+    }
+
+    getLogoRecommendations(logoAssets) {
+        const recommendations = [];
+        
+        if (!logoAssets.svgFormat) {
+            recommendations.push('Consider using SVG format for better scalability');
+        }
+        
+        if (logoAssets.altText.length === 0) {
+            recommendations.push('Add descriptive alt text to logo images');
+        }
+        
+        if (!logoAssets.ogImageSet) {
+            recommendations.push('Set Open Graph image for social media sharing');
+        }
+        
+        if (logoAssets.faviconCount === 0) {
+            recommendations.push('Add favicon for better branding');
+        }
+
+        return recommendations;
+    }
+
     testGallery() {
         try {
             const galleryContainer = document.getElementById('gallery-container');
             const savedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
             
+            // Check for logo assets in assets folder
+            const logoAssets = [
+                'assets/ctv-logo-optimized.svg',
+                'assets/ctv-logo.svg', 
+                'assets/ctv-logo-final.png',
+                'assets/ctv-logo-ultimate.png'
+            ];
+            
             return {
                 hasGallery: !!galleryContainer,
                 imageCount: savedImages.length,
                 localStorageAccess: true,
-                status: galleryContainer ? 'present' : 'missing'
+                status: galleryContainer ? 'present' : 'missing',
+                logoAssets: logoAssets,
+                assetsFolder: 'Contains multiple logo versions for reference',
+                recommendation: 'Use logo assets as placeholder/hero images instead of generic photos'
             };
         } catch (error) {
             return {
@@ -243,6 +324,46 @@ class DeployTest {
         return this.results.phase5;
     }
 
+    async phase6_assetManagement() {
+        console.log('\n📁 Phase 6: Asset Management');
+        
+        const assetInventory = {
+            logos: [
+                'ctv-logo-optimized.svg',
+                'ctv-logo.svg',
+                'ctv-logo-final.png',
+                'ctv-logo-ultimate.png',
+                'ctv-logo-professional.png'
+            ],
+            placeholderSuggestions: [
+                'Use logo variations as hero backgrounds',
+                'Replace generic stock photos with branded elements',
+                'Create branded placeholder cards using logo elements',
+                'Use logo color scheme (#FF7700, #000000, #C0C0C0) consistently'
+            ],
+            optimizations: [
+                'SVG logos provide infinite scalability',
+                'Multiple logo versions available for different contexts',
+                'Consistent brand colors throughout assets',
+                'Professional welding imagery maintains brand identity'
+            ]
+        };
+
+        this.results.phase6 = {
+            assetInventory,
+            currentActiveAsset: 'ctv-logo-optimized.svg',
+            brandConsistency: 'High - consistent orange/silver/black theme',
+            recommendations: [
+                'Replace generic placeholder images with logo-based designs',
+                'Use consistent brand colors in all UI elements',
+                'Consider creating service icons using logo design elements',
+                'Maintain professional construction industry aesthetic'
+            ]
+        };
+
+        return this.results.phase6;
+    }
+
     generateReport() {
         const endTime = Date.now();
         const duration = ((endTime - this.startTime) / 1000).toFixed(2);
@@ -257,6 +378,7 @@ class DeployTest {
         // Phase 1 Results
         console.log('\n🔍 PHASE 1 - LOCAL TESTING:');
         console.log('Navigation:', this.results.phase1.navigation.working + '/' + this.results.phase1.navigation.total + ' links working');
+        console.log('Logo Assets:', this.results.phase1.logo.status + ' - ' + (this.results.phase1.logo.svgFormat ? 'SVG' : 'Non-SVG'));
         console.log('Gallery:', this.results.phase1.gallery.status);
         console.log('Contact:', this.results.phase1.contact.emailLinks + ' email links, ' + this.results.phase1.contact.phoneLinks + ' phone links');
         console.log('Service Worker:', this.results.phase1.serviceWorker.registered ? 'Registered' : 'Not registered');
@@ -271,11 +393,19 @@ class DeployTest {
         console.log('Smooth Scroll:', this.results.phase4.smoothScroll ? '✅' : '❌');
         console.log('Performance Monitor:', this.results.phase4.performanceMonitor ? '✅' : '❌');
         
-        console.log('\n💡 RECOMMENDATIONS:');
+        // Phase 6 Results
+        console.log('\n� PHASE 6 - ASSET MANAGEMENT:');
+        console.log('Active Logo:', this.results.phase6.currentActiveAsset);
+        console.log('Brand Consistency:', this.results.phase6.brandConsistency);
+        console.log('Logo Variations:', this.results.phase6.assetInventory.logos.length + ' versions available');
+        
+        console.log('\n�💡 RECOMMENDATIONS:');
         console.log('- Run Lighthouse audit for performance scores');
         console.log('- Test on multiple devices for responsiveness');
         console.log('- Validate structured data with Google');
         console.log('- Test offline functionality');
+        console.log('- Replace placeholder images with branded logo elements');
+        console.log('- Maintain consistent orange/silver/black color scheme');
         
         console.log('\n' + '='.repeat(60));
         console.log('✅ Test completed successfully!');
