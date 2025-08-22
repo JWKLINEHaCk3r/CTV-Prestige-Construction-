@@ -139,108 +139,173 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 220px;
+    min-height: 260px;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 35px;
-    padding: 20px 30px;
-    border-radius: 20px;
+    gap: 40px;
+    padding: 25px 35px;
+    border-radius: 24px;
     background: linear-gradient(135deg, 
-        rgba(15, 23, 42, 0.95) 0%, 
-        rgba(30, 41, 59, 0.9) 50%, 
-        rgba(15, 23, 42, 0.95) 100%);
-    border: 3px solid rgba(255, 119, 0, 0.3);
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(15, 23, 42, 0.9) 25%,
+        rgba(30, 41, 59, 0.85) 50%,
+        rgba(15, 23, 42, 0.9) 75%,
+        rgba(0, 0, 0, 0.95) 100%);
+    border: 3px solid transparent;
+    background-clip: padding-box;
     box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 119, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12),
+        inset 0 0 25px rgba(255, 119, 0, 0.08);
     animation: fadeInLeft 0.8s ease-out;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-backdrop-filter: blur(35px) saturate(220%) brightness(1.15);
+    backdrop-filter: blur(35px) saturate(220%) brightness(1.15);
     position: relative;
+    overflow: hidden;
 }
 
 .nav-logo::before {
     content: '';
     position: absolute;
-    inset: -2px;
-    padding: 2px;
+    inset: -3px;
+    padding: 3px;
     background: linear-gradient(45deg, 
-        rgba(255, 119, 0, 0.6), 
-        rgba(255, 85, 0, 0.4), 
-        rgba(255, 153, 48, 0.6));
-    border-radius: 22px;
+        rgba(255, 119, 0, 0.9) 0%,
+        rgba(255, 85, 0, 0.7) 25%, 
+        rgba(255, 153, 48, 0.9) 50%,
+        rgba(255, 85, 0, 0.7) 75%,
+        rgba(255, 119, 0, 0.9) 100%);
+    border-radius: 27px;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: all 0.6s ease;
+    animation: borderGlow 6s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% { 
+        background: linear-gradient(45deg, 
+            rgba(255, 119, 0, 0.9), 
+            rgba(255, 85, 0, 0.7), 
+            rgba(255, 153, 48, 0.9), 
+            rgba(255, 85, 0, 0.7), 
+            rgba(255, 119, 0, 0.9));
+    }
+    50% { 
+        background: linear-gradient(225deg, 
+            rgba(255, 153, 48, 1), 
+            rgba(255, 119, 0, 0.8), 
+            rgba(255, 85, 0, 1), 
+            rgba(255, 119, 0, 0.8), 
+            rgba(255, 153, 48, 1));
+    }
+    100% { 
+        background: linear-gradient(45deg, 
+            rgba(255, 119, 0, 0.9), 
+            rgba(255, 85, 0, 0.7), 
+            rgba(255, 153, 48, 0.9), 
+            rgba(255, 85, 0, 0.7), 
+            rgba(255, 119, 0, 0.9));
+    }
 }
 
 .nav-logo:hover::before {
     opacity: 1;
+    animation: borderGlow 2s ease-in-out infinite alternate;
 }
 
 .nav-logo:hover {
     background: linear-gradient(135deg, 
-        rgba(15, 23, 42, 1) 0%, 
-        rgba(30, 41, 59, 0.95) 50%, 
-        rgba(15, 23, 42, 1) 100%);
-    border-color: rgba(255, 119, 0, 0.5);
-    transform: translateY(-3px) scale(1.02);
+        rgba(0, 0, 0, 1) 0%, 
+        rgba(15, 23, 42, 0.98) 25%,
+        rgba(30, 41, 59, 0.95) 50%,
+        rgba(15, 23, 42, 0.98) 75%,
+        rgba(0, 0, 0, 1) 100%);
+    transform: translateY(-5px) scale(1.03);
     box-shadow: 
-        0 20px 40px rgba(255, 119, 0, 0.15),
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        0 0 0 1px rgba(255, 255, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        0 35px 70px rgba(255, 119, 0, 0.25),
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 119, 0, 0.7),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18),
+        inset 0 0 35px rgba(255, 119, 0, 0.12);
 }
 
 .site-logo {
-    height: 200px;
+    height: 240px;
     width: auto;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     filter: 
-        drop-shadow(0 8px 16px rgba(255, 119, 0, 0.25))
-        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))
-        brightness(1.05)
-        contrast(1.1);
-    border-radius: 16px;
+        drop-shadow(0 15px 30px rgba(255, 119, 0, 0.4))
+        drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 25px rgba(255, 119, 0, 0.3))
+        brightness(1.12)
+        contrast(1.18)
+        saturate(1.15);
+    border-radius: 22px;
     background: transparent;
     padding: 0;
+    position: relative;
+    z-index: 10;
 }
 
 .site-logo:hover {
-    transform: scale(1.05) rotate(1deg);
+    transform: scale(1.08) rotate(3deg);
     filter: 
-        drop-shadow(0 12px 24px rgba(255, 119, 0, 0.4))
-        drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4))
-        brightness(1.1)
-        contrast(1.15)
-        saturate(1.1);
+        drop-shadow(0 25px 50px rgba(255, 119, 0, 0.6))
+        drop-shadow(0 15px 35px rgba(0, 0, 0, 0.6))
+        drop-shadow(0 0 40px rgba(255, 119, 0, 0.5))
+        brightness(1.2)
+        contrast(1.25)
+        saturate(1.25)
+        hue-rotate(3deg);
 }
 
 .nav-tagline {
     color: var(--text-primary);
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-weight: 700;
     text-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.6),
-        0 0 20px rgba(255, 119, 0, 0.3);
-    letter-spacing: 0.8px;
+        0 4px 8px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(255, 119, 0, 0.5),
+        0 0 50px rgba(255, 119, 0, 0.3);
+    letter-spacing: 1.2px;
     line-height: 1.2;
     background: linear-gradient(135deg, 
         #ffffff 0%, 
-        #f0f0f0 50%, 
+        #f8f9fa 25%,
+        #e9ecef 50%,
+        #f8f9fa 75%,
         #ffffff 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: textGlow 4s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 5;
+}
+
+@keyframes textGlow {
+    0% { 
+        text-shadow: 
+            0 4px 8px rgba(0, 0, 0, 0.7), 
+            0 0 30px rgba(255, 119, 0, 0.5), 
+            0 0 50px rgba(255, 119, 0, 0.3);
+    }
+    100% { 
+        text-shadow: 
+            0 4px 8px rgba(0, 0, 0, 0.7), 
+            0 0 40px rgba(255, 119, 0, 0.7), 
+            0 0 60px rgba(255, 119, 0, 0.4);
+    }
 }
 
 .nav-menu {
