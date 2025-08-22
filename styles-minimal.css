@@ -1,0 +1,92 @@
+/* EMERGENCY MINIMAL CSS - TESTING ONLY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background: #000000 !important;
+    background-color: #000000 !important;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    color: white;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.site-logo {
+    height: 240px;
+    width: auto;
+}
+
+.nav-tagline {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.hero {
+    background: #000000;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+.cta-button {
+    background: #ff7700;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+section {
+    background: #000000 !important;
+    color: white;
+    padding: 50px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
