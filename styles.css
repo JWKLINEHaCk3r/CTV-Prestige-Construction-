@@ -135,30 +135,51 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 80px;
+    min-height: 90px;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    padding: 10px 20px 10px 10px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 119, 0, 0.08) 0%, rgba(255, 85, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 119, 0, 0.15);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
     animation: fadeInLeft 0.8s ease-out;
+    transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+    background: linear-gradient(135deg, rgba(255, 119, 0, 0.12) 0%, rgba(255, 85, 0, 0.08) 100%);
+    border-color: rgba(255, 119, 0, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(255, 119, 0, 0.15);
 }
 
 .site-logo {
-    height: 55px;
+    height: 75px;
     width: auto;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 8px rgba(255, 119, 0, 0.3));
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
 }
 
 .site-logo:hover {
     transform: scale(1.05);
+    filter: drop-shadow(0 4px 12px rgba(255, 119, 0, 0.4));
 }
 
 .nav-tagline {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    font-weight: 500;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
 }
 
 .nav-menu {
@@ -219,7 +240,7 @@ p {
     background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
     color: white;
     padding: 150px 0 100px;
-    margin-top: 80px;
+    margin-top: 90px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -777,6 +798,19 @@ p {
     .nav-container {
         flex-direction: column;
         padding: 1rem;
+        min-height: 100px;
+    }
+    
+    .nav-logo {
+        margin-bottom: 0.5rem;
+    }
+    
+    .site-logo {
+        height: 65px;
+    }
+    
+    .nav-tagline {
+        font-size: 0.9rem;
     }
     
     .nav-menu {
@@ -787,7 +821,7 @@ p {
     
     .hero {
         padding: 100px 0 60px;
-        margin-top: 120px;
+        margin-top: 130px;
     }
     
     h1 {
