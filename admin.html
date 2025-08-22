@@ -18,14 +18,235 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-fresh.css">
+    <style>
+        /* Import CSS variables from fresh styles */
+        :root {
+            --primary-orange: #ff7700;
+            --secondary-orange: #ff5500;
+            --accent-orange: #ff9930;
+            --bg-dark: #000000;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-primary: rgba(255, 119, 0, 0.3);
+            --border-hover: rgba(255, 119, 0, 0.6);
+            --shadow-primary: rgba(255, 119, 0, 0.2);
+            --glass-bg: rgba(0, 0, 0, 0.8);
+            --gradient-primary: linear-gradient(135deg, #ff7700 0%, #ff5500 50%, #ff9930 100%);
+        }
+        
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        /* Admin-specific compact header styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-primary);
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 70px;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 8px 15px;
+            border-radius: 12px;
+            background: rgba(255, 119, 0, 0.1);
+            border: 1px solid var(--border-primary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 119, 0, 0.15);
+        }
+        
+        .site-logo {
+            height: 48px;
+            width: 48px;
+            border-radius: 8px;
+            filter: drop-shadow(0 2px 8px rgba(255, 119, 0, 0.3));
+            transition: all 0.3s ease;
+        }
+        
+        .site-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 12px rgba(255, 119, 0, 0.5));
+        }
+        
+        .nav-logo span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background: var(--bg-card);
+            color: var(--primary-orange);
+            border-color: var(--border-primary);
+        }
+        
+        /* Admin content adjustment for compact header */
+        .admin-container,
+        .upload-container {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Enhanced admin styling */
+        .admin-container h2,
+        .upload-container h2 {
+            color: var(--primary-orange);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .admin-form,
+        .upload-form {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-primary);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--border-hover);
+            box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.1);
+        }
+        
+        .admin-button {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-primary);
+        }
+        
+        .logout-button {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            width: auto;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive design for admin */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+                min-height: 60px;
+            }
+            
+            .nav-logo {
+                gap: 10px;
+                padding: 6px 10px;
+            }
+            
+            .site-logo {
+                height: 40px;
+                width: 40px;
+            }
+            
+            .nav-logo span {
+                font-size: 1rem;
+            }
+            
+            .admin-container,
+            .upload-container {
+                margin-top: 80px;
+                padding: 1rem;
+            }
+            
+            .admin-form,
+            .upload-form {
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav-logo span {
+                display: none;
+            }
+            
+            .site-logo {
+                height: 36px;
+                width: 36px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Simple navigation for admin pages -->
     <nav class="navbar">
         <div class="nav-container">
-                        <div class="nav-logo">
-                <img src="assets/ctv-logo-optimized.svg" alt="CTV Prestige Construction Logo" class="site-logo" />
+            <div class="nav-logo">
+                <img src="assets/ctv-logo-square.svg" alt="CTV Prestige Construction Logo" class="site-logo" width="48" height="48" />
                 <span>Admin Panel</span>
             </div>
             <div class="nav-menu">
