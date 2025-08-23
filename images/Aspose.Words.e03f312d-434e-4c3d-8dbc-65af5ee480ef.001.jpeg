@@ -1,0 +1,30 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="docGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f8f8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8e8e8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Document background -->
+  <rect width="400" height="300" fill="url(#docGrad1)" stroke="#ddd" stroke-width="2"/>
+  
+  <!-- Document lines -->
+  <line x1="40" y1="80" x2="360" y2="80" stroke="#ccc" stroke-width="1"/>
+  <line x1="40" y1="100" x2="360" y2="100" stroke="#ccc" stroke-width="1"/>
+  <line x1="40" y1="120" x2="360" y2="120" stroke="#ccc" stroke-width="1"/>
+  <line x1="40" y1="140" x2="280" y2="140" stroke="#ccc" stroke-width="1"/>
+  
+  <!-- Header area -->
+  <rect x="40" y="30" width="320" height="30" fill="#FF7700" opacity="0.1"/>
+  
+  <!-- Document icon -->
+  <text x="200" y="200" font-family="Arial Black, sans-serif" font-size="36" font-weight="900" fill="#FF7700" text-anchor="middle">📄</text>
+  
+  <!-- Document title -->
+  <text x="200" y="240" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">BUSINESS LICENSE</text>
+  <text x="200" y="260" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#666">Professional Registration</text>
+  
+  <!-- CTV branding -->
+  <text x="40" y="45" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#FF7700">CTV PRESTIGE CONSTRUCTION</text>
+</svg>

@@ -1,0 +1,231 @@
+/* COMPREHENSIVE IMAGE FALLBACK SOLUTION */
+
+/* Create professional-looking placeholder images using CSS */
+.gallery-item img {
+    position: relative;
+    min-height: 250px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+}
+
+/* Hide completely broken dynamic images */
+.gallery-item.dynamic-item img[src=""],
+.gallery-item.dynamic-item img[src*="20230428_081145"],
+.gallery-item.dynamic-item img[src*="blob:"]:not([src^="data:"]) {
+    display: none;
+}
+
+.gallery-item.dynamic-item:has(img[src=""]),
+.gallery-item.dynamic-item:has(img[src*="20230428_081145"]),
+.gallery-item.dynamic-item:has(img[src*="blob:"]:not([src^="data:"])) {
+    display: none !important;
+}
+
+/* Professional welding image placeholders */
+.gallery-item img[src*="welding-project-1"]:before,
+.gallery-item img[src*="welding-project-1"]:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+}
+
+.gallery-item img[src*="welding-project-1"]:before {
+    content: '⚡';
+    font-size: 4rem;
+    color: var(--primary-orange);
+    text-shadow: 0 0 20px var(--primary-orange);
+}
+
+.gallery-item img[src*="welding-project-1"]:after {
+    content: 'PROFESSIONAL WELDING';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.gallery-item img[src*="welding-project-2"]:before {
+    content: '🔧';
+    font-size: 4rem;
+    position: absolute;
+    color: var(--primary-orange);
+    text-shadow: 0 0 20px var(--primary-orange);
+}
+
+.gallery-item img[src*="welding-project-2"]:after {
+    content: 'EXPERT REPAIRS';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Container repair placeholders */
+.gallery-item img[src*="container-repair-1"]:before {
+    content: '🚛';
+    font-size: 4rem;
+    position: absolute;
+    color: var(--primary-orange);
+    text-shadow: 0 0 20px var(--primary-orange);
+}
+
+.gallery-item img[src*="container-repair-1"]:after {
+    content: 'CONTAINER RESTORATION';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.gallery-item img[src*="container-repair-2"]:before {
+    content: '✅';
+    font-size: 4rem;
+    position: absolute;
+    color: #00ff88;
+    text-shadow: 0 0 20px #00ff88;
+}
+
+.gallery-item img[src*="container-repair-2"]:after {
+    content: 'QUALITY ASSURED';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Pressure washing placeholders */
+.gallery-item img[src*="pressure-washing-1"]:before {
+    content: '💧';
+    font-size: 4rem;
+    position: absolute;
+    color: #00aaff;
+    text-shadow: 0 0 20px #00aaff;
+}
+
+.gallery-item img[src*="pressure-washing-1"]:after {
+    content: 'PRESSURE CLEANING';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.gallery-item img[src*="pressure-washing-2"]:before {
+    content: '🌟';
+    font-size: 4rem;
+    position: absolute;
+    color: #ffdd00;
+    text-shadow: 0 0 20px #ffdd00;
+}
+
+.gallery-item img[src*="pressure-washing-2"]:after {
+    content: 'PRISTINE RESULTS';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Handle broken images generically */
+img {
+    position: relative;
+}
+
+img[src]:after {
+    display: none;
+}
+
+img:not([src]),
+img[src=""],
+img[src$=".jpg"][src*="missing"],
+img[src$=".png"][src*="missing"],
+img[src$=".jpeg"][src*="missing"] {
+    display: inline-block;
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+    position: relative;
+}
+
+img:not([src]):before,
+img[src=""]:before,
+img[src$=".jpg"][src*="missing"]:before,
+img[src$=".png"][src*="missing"]:before,
+img[src$=".jpeg"][src*="missing"]:before {
+    content: '🏗️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: var(--primary-orange);
+    text-shadow: 0 0 20px var(--primary-orange);
+}
+
+img:not([src]):after,
+img[src=""]:after,
+img[src$=".jpg"][src*="missing"]:after,
+img[src$=".png"][src*="missing"]:after,
+img[src$=".jpeg"][src*="missing"]:after {
+    content: 'CTV PRESTIGE CONSTRUCTION';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+    text-align: center;
+}

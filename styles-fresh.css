@@ -112,9 +112,37 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     border-radius: 12px;
     border: 2px solid rgba(255, 119, 0, 0.2);
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
     padding: 4px;
     object-fit: contain;
+    position: relative;
+}
+
+/* Fallback text for missing logo */
+.site-logo:after {
+    content: "CTV";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    z-index: 1;
+    display: none;
+}
+
+.site-logo:broken,
+.site-logo[src=""],
+.site-logo[src*="missing"] {
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+}
+
+.site-logo:broken:after,
+.site-logo[src=""]:after,
+.site-logo[src*="missing"]:after {
+    display: block;
 }
 
 .site-logo:hover {
@@ -223,12 +251,37 @@ body {
     height: 120px;
     border-radius: 20px;
     border: 3px solid var(--primary-orange);
-    background: rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
     padding: 8px;
     object-fit: contain;
     filter: drop-shadow(0 8px 25px rgba(255, 119, 0, 0.4));
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     animation: heroLogoFloat 3s ease-in-out infinite;
+    position: relative;
+}
+
+/* Fallback text for hero logo */
+.hero-logo-img:after {
+    content: "CTV PRESTIGE";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    z-index: 1;
+    display: none;
+    white-space: pre;
+}
+
+.hero-logo-img:broken:after,
+.hero-logo-img[src=""]:after,
+.hero-logo-img[src*="missing"]:after {
+    display: block;
 }
 
 .hero-logo-img:hover {
