@@ -47,62 +47,108 @@
         }
         
         .logo-desktop {
-            height: 64px;
+            color: var(--primary-orange);
+        }
+        
+        .logo-demo {
             width: 64px;
+            height: 64px;
+            background: var(--primary-orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 0 auto 0.5rem;
         }
         
-        .logo-tablet {
-            height: 56px;
+        .logo-tablet .logo-demo {
             width: 56px;
+            height: 56px;
         }
         
-        .logo-mobile {
-            height: 48px;
+        .logo-mobile .logo-demo {
             width: 48px;
+            height: 48px;
         }
         
-        .logo-mini {
-            height: 40px;
+        .logo-mini .logo-demo {
             width: 40px;
+            height: 40px;
+        }
+        
+        .logo-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .improvement-description {
+            color: var(--text-secondary);
+        }
+        
+        .achievement-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border-primary);
+            text-align: center;
+        }
+        
+        .achievement-title {
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+        
+        .achievement-text {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .achievement-note {
+            color: var(--text-secondary);
         }
     </style>
 </head>
 <body>
     <div class="showcase-container">
-        <h1 style="text-align: center; color: var(--text-primary); margin-bottom: 2rem;">
+        <h1 class="showcase-title">
             🎨 CTV Theme Improvements Showcase
         </h1>
         
         <div class="logo-comparison">
             <div class="logo-size">
-                <h3 style="color: var(--primary-orange);">Desktop (64px)</h3>
-                <div style="width: 64px; height: 64px; background: var(--primary-orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">LOGO</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Bold & Professional</p>
+                <h3>Desktop (64px)</h3>
+                <div class="logo-demo">LOGO</div>
+                <p class="logo-description">Bold & Professional</p>
             </div>
             
             <div class="logo-size">
-                <h3 style="color: var(--primary-orange);">Tablet (56px)</h3>
-                <div style="width: 56px; height: 56px; background: var(--primary-orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">LOGO</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Optimized Size</p>
+                <h3>Tablet (56px)</h3>
+                <div class="logo-demo">LOGO</div>
+                <p class="logo-description">Optimized Size</p>
             </div>
             
             <div class="logo-size">
-                <h3 style="color: var(--primary-orange);">Mobile (48px)</h3>
-                <div style="width: 48px; height: 48px; background: var(--primary-orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">LOGO</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Clean & Clear</p>
+                <h3>Mobile (48px)</h3>
+                <div class="logo-demo">LOGO</div>
+                <p class="logo-description">Clean & Clear</p>
             </div>
             
             <div class="logo-size">
-                <h3 style="color: var(--primary-orange);">Mini (40px)</h3>
-                <div style="width: 40px; height: 40px; background: var(--primary-orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">LOGO</div>
-                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">Compact</p>
+                <h3>Mini (40px)</h3>
+                <div class="logo-demo">LOGO</div>
+                <p class="logo-description">Compact</p>
             </div>
         </div>
 
         <div class="improvements-grid">
             <div class="improvement-card">
                 <h3>🎯 Logo Optimization</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • Responsive sizing: 64px desktop → 40px mobile<br>
                     • Bold but classy appearance<br>
                     • Maintains professional welder branding<br>
@@ -113,7 +159,7 @@
 
             <div class="improvement-card">
                 <h3>🎨 Enhanced Theme</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • Refined black & orange color palette<br>
                     • CSS custom properties for consistency<br>
                     • Gradient backgrounds and accents<br>
@@ -124,7 +170,7 @@
 
             <div class="improvement-card">
                 <h3>📱 Mobile Perfection</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • Fluid responsive breakpoints<br>
                     • Touch-friendly navigation<br>
                     • Optimized typography scaling<br>
@@ -135,7 +181,7 @@
 
             <div class="improvement-card">
                 <h3>✨ Modern Effects</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • Smooth cubic-bezier transitions<br>
                     • Backdrop blur effects<br>
                     • Interactive hover states<br>
@@ -146,7 +192,7 @@
 
             <div class="improvement-card">
                 <h3>🏗️ Professional Branding</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • Consistent orange brand colors<br>
                     • Industrial design elements<br>
                     • Welder-themed visual hierarchy<br>
@@ -157,7 +203,7 @@
 
             <div class="improvement-card">
                 <h3>🚀 Performance</h3>
-                <p style="color: var(--text-secondary);">
+                <p class="improvement-description">
                     • CSS custom properties<br>
                     • Optimized animations<br>
                     • Reduced motion preferences<br>
@@ -167,12 +213,12 @@
             </div>
         </div>
 
-        <div style="margin-top: 3rem; padding: 2rem; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-primary); text-align: center;">
-            <h3 style="color: var(--primary-orange); margin-bottom: 1rem;">🎉 Theme Achievement</h3>
-            <p style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 1rem;">
+        <div class="achievement-section">
+            <h3 class="achievement-title">🎉 Theme Achievement</h3>
+            <p class="achievement-text">
                 <strong>Bold, Classy, Clean Design</strong>
             </p>
-            <p style="color: var(--text-secondary);">
+            <p class="achievement-note">
                 Professional CTV branding with perfect black & orange theme integration.<br>
                 Responsive logo scaling ensures readability from desktop to mobile.<br>
                 Modern CSS effects maintain the clean, industrial aesthetic.
