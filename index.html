@@ -99,8 +99,7 @@
                 <span class="nav-tagline">Mobile Welding & Repair</span>
             </div>
             <div class="nav-menu">
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#services" class="nav-link">Services & Portfolio</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="admin.html" class="nav-link admin-link">Admin</a>
             </div>
@@ -120,21 +119,58 @@
     </section>
 
     <!-- Services Section -->
+        <!-- Combined Services & Portfolio Section -->
     <section id="services" class="services">
         <div class="container">
-            <h2>Our Services</h2>
+            <h2>Our Professional Services & Portfolio</h2>
+            
+            <!-- Service Cards with Images -->
             <div class="services-grid">
-                <div class="service-card">
-                    <h3>Mobile Welding Services</h3>
-                    <p>Professional welding and repair services for trash trucks and equipment</p>
+                <div class="service-card service-with-image">
+                    <div class="service-image">
+                        <img src="assets/sample-photos/welding/welding-project-1.jpg" alt="Professional Mobile Welding Services" loading="lazy">
+                        <div class="service-image-overlay">
+                            <span>⚡</span>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Mobile Welding Services</h3>
+                        <p>Professional welding and repair services for trash trucks and equipment. On-site welding solutions with certified welders and state-of-the-art equipment.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <h3>Container Repair</h3>
-                    <p>Expert repair and refurbishment of containers</p>
+                
+                <div class="service-card service-with-image">
+                    <div class="service-image">
+                        <img src="assets/sample-photos/container-repair/container-repair-1.jpg" alt="Expert Container Repair" loading="lazy">
+                        <div class="service-image-overlay">
+                            <span>🔧</span>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Container Repair</h3>
+                        <p>Expert repair and refurbishment of containers and waste management equipment. Comprehensive restoration services to extend equipment life.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <h3>Pressure Washing</h3>
-                    <p>Professional cleaning services for industrial equipment</p>
+                
+                <div class="service-card service-with-image">
+                    <div class="service-image">
+                        <img src="assets/sample-photos/pressure-washing/pressure-washing-1.jpg" alt="Professional Pressure Washing" loading="lazy">
+                        <div class="service-image-overlay">
+                            <span>💧</span>
+                        </div>
+                    </div>
+                    <div class="service-content">
+                        <h3>Pressure Washing</h3>
+                        <p>Professional cleaning services for industrial equipment and containers. High-pressure cleaning solutions for thorough maintenance and sanitation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Work Gallery -->
+            <div class="additional-work">
+                <h3>Additional Portfolio</h3>
+                <div id="gallery-container" class="gallery-grid">
+                    <!-- Dynamic images from localStorage will be loaded here via JavaScript -->
                 </div>
             </div>
         </div>
