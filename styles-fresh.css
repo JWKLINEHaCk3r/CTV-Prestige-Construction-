@@ -496,7 +496,7 @@ section {
 
 .service-image-overlay {
     position: absolute;
-    top: 15px;
+    bottom: 15px;
     right: 15px;
     background: var(--gradient-primary);
     width: 50px;
@@ -507,6 +507,7 @@ section {
     justify-content: center;
     box-shadow: 0 4px 12px var(--shadow-accent);
     transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .service-image-overlay span {
@@ -567,6 +568,66 @@ section {
     width: 40px;
     height: 3px;
     background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+/* Additional Portfolio Grid */
+.additional-portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto 0;
+}
+
+.portfolio-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-orange);
+    box-shadow: 0 10px 30px var(--shadow-accent);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.05);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    padding: 2rem 1.5rem 1.5rem;
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    transform: translateY(0);
+}
+
+.portfolio-overlay span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
     border-radius: 2px;
 }
 
@@ -1459,4 +1520,54 @@ section {
 .load-more-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px var(--shadow-primary);
+}
+
+/* Responsive Design for Portfolio and Services */
+@media (max-width: 768px) {
+    .additional-portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .portfolio-item img {
+        height: 200px;
+    }
+    
+    .service-with-image {
+        min-height: 350px;
+    }
+    
+    .service-image {
+        height: 180px;
+    }
+    
+    .service-content {
+        padding: 1.5rem;
+    }
+    
+    .service-image-overlay {
+        width: 40px;
+        height: 40px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .service-image-overlay span {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .additional-portfolio-grid {
+        padding: 0 0.5rem;
+    }
+    
+    .service-content h3 {
+        font-size: 1.2rem;
+    }
+    
+    .service-content p {
+        font-size: 0.9rem;
+    }
 }
