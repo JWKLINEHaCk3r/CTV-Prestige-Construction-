@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "images/ctv-professional-logo.svg",
+      "src": "assets/Finallogo.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "images/ctv-final-logo.png",
+      "src": "assets/Finallogo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "images/ctv-final-logo.png",
+      "src": "assets/Finallogo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
