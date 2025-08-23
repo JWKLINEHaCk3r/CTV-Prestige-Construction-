@@ -9,10 +9,10 @@
     <meta name="author" content="CTV Prestige Construction">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="images/ctv-professional-logo.svg">
-    <link rel="icon" type="image/png" href="images/ctv-final-logo.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="images/ctv-final-logo.png" sizes="16x16">
-    <link rel="apple-touch-icon" href="images/ctv-professional-logo.svg">
+    <link rel="icon" type="image/png" href="images/ctv-correct-logo.png.png">
+    <link rel="icon" type="image/png" href="images/ctv-correct-logo.png.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/ctv-correct-logo.png.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="images/ctv-correct-logo.png.png">
     
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,14 +58,14 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-primary);
             z-index: 1000;
-            padding: 8px 0;
+            padding: 4px 0;
         }
         
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            min-height: 70px;
-            padding: 0 1.5rem;
+            min-height: 50px;
+            padding: 0 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -74,9 +74,9 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-            padding: 8px 15px;
-            border-radius: 12px;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 8px;
             background: rgba(255, 119, 0, 0.1);
             border: 1px solid var(--border-primary);
             transition: all 0.3s ease;
@@ -89,36 +89,21 @@
         }
         
         /* Admin site logo specific styling */
-        .nav-logo .site-logo {
-            border-radius: 8px;
-            border: 2px solid var(--primary-orange);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 4px;
-            box-shadow: 0 2px 8px rgba(255, 119, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-logo:hover .site-logo {
-            transform: scale(1.05);
-            border-color: var(--accent-orange);
-            box-shadow: 0 4px 12px rgba(255, 119, 0, 0.4);
-        }
-        
         .site-logo {
-            height: 48px;
-            width: 48px;
-            border-radius: 8px;
-            filter: drop-shadow(0 2px 8px rgba(255, 119, 0, 0.3));
+            height: 32px;
+            width: 32px;
+            border-radius: 6px;
+            filter: drop-shadow(0 2px 4px rgba(255, 119, 0, 0.3));
             transition: all 0.3s ease;
         }
         
         .site-logo:hover {
             transform: scale(1.05);
-            filter: drop-shadow(0 4px 12px rgba(255, 119, 0, 0.5));
+            filter: drop-shadow(0 2px 6px rgba(255, 119, 0, 0.5));
         }
         
         .nav-logo span {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-primary);
         }
@@ -131,10 +116,11 @@
         .nav-link {
             color: var(--text-primary);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
             border: 1px solid transparent;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
         
         .nav-link:hover {
@@ -146,9 +132,9 @@
         /* Admin content adjustment for compact header */
         .admin-container,
         .upload-container {
-            margin-top: 100px;
-            padding: 2rem;
-            max-width: 800px;
+            margin-top: 70px;
+            padding: 1.5rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -157,25 +143,26 @@
         .upload-guidelines {
             background: #f0f9ff;
             border: 1px solid #0ea5e9;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 2rem;
+            border-radius: 6px;
+            padding: 0.8rem;
+            margin-bottom: 1.5rem;
         }
         
         .upload-guidelines h4 {
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.4rem 0;
             color: #0ea5e9;
+            font-size: 0.9rem;
         }
         
         .upload-guidelines ul {
             margin: 0;
-            padding-left: 1.5rem;
-            font-size: 0.9rem;
+            padding-left: 1.2rem;
+            font-size: 0.8rem;
         }
         
         /* Clear All Button Container */
         .clear-all-container {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             text-align: center;
         }
         
@@ -183,11 +170,11 @@
         .clear-all-button {
             background: linear-gradient(135deg, #dc2626, #b91c1c);
             width: auto;
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -195,62 +182,62 @@
         .clear-all-button:hover {
             background: linear-gradient(135deg, #b91c1c, #991b1b);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
         }
         
         /* Enhanced admin styling */
         .admin-container h2,
         .upload-container h2 {
             color: var(--primary-orange);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
             text-align: center;
         }
         
         .admin-form,
         .upload-form {
             background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 16px;
+            padding: 1.5rem;
+            border-radius: 12px;
             border: 1px solid var(--border-primary);
-            max-width: 500px;
-            margin: 0 auto 2rem;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
         }
         
         .admin-input {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 0.8rem;
             border: 1px solid var(--border-primary);
-            border-radius: 8px;
+            border-radius: 6px;
             background: var(--bg-dark);
             color: var(--text-primary);
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
             transition: all 0.3s ease;
         }
         
         .admin-input:focus {
             outline: none;
             border-color: var(--border-hover);
-            box-shadow: 0 0 0 3px rgba(255, 119, 0, 0.1);
+            box-shadow: 0 0 0 2px rgba(255, 119, 0, 0.1);
         }
         
         .admin-button {
             width: 100%;
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1rem;
             background: var(--gradient-primary);
             color: var(--text-primary);
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
         .admin-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px var(--shadow-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px var(--shadow-primary);
         }
         
         .logout-button {
@@ -272,33 +259,38 @@
         /* Responsive design for admin */
         @media (max-width: 768px) {
             .nav-container {
-                padding: 0 1rem;
-                min-height: 60px;
+                padding: 0 0.8rem;
+                min-height: 45px;
             }
             
             .nav-logo {
-                gap: 10px;
-                padding: 6px 10px;
+                gap: 8px;
+                padding: 4px 8px;
             }
             
             .site-logo {
-                height: 40px;
-                width: 40px;
+                height: 28px;
+                width: 28px;
             }
             
             .nav-logo span {
-                font-size: 1rem;
+                font-size: 0.8rem;
             }
             
             .admin-container,
             .upload-container {
-                margin-top: 80px;
+                margin-top: 60px;
                 padding: 1rem;
             }
             
             .admin-form,
             .upload-form {
-                padding: 1.5rem;
+                padding: 1rem;
+            }
+            
+            .admin-container h2,
+            .upload-container h2 {
+                font-size: 1.3rem;
             }
         }
         
@@ -308,8 +300,13 @@
             }
             
             .site-logo {
-                height: 36px;
-                width: 36px;
+                height: 24px;
+                width: 24px;
+            }
+            
+            .nav-link {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -319,9 +316,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                                <img src="images/ctv-professional-logo.svg" 
-                     alt="CTV Prestige Construction - Professional Mobile Welding Services" 
-                     class="admin-logo" />
+                <img src="images/ctv-correct-logo.png.png" 
+                     alt="CTV Prestige Construction - Admin Panel" 
+                     class="site-logo" />
                 <span>Admin Panel</span>
             </div>
             <div class="nav-menu">
