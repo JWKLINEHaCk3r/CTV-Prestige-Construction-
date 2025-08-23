@@ -477,6 +477,24 @@ section {
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+}
+
+/* Image loading error fallbacks */
+.gallery-item img[alt*="Professional Branding"],
+.gallery-item img[alt*="Company Identity"] {
+    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+}
+
+.gallery-item img[alt*="Professional Standards"],
+.gallery-item img[alt*="Quality Assurance"] {
+    background: linear-gradient(135deg, #1a1a1a 0%, var(--accent-orange) 100%);
+}
+
+.gallery-item img[alt*="Service Excellence"],
+.gallery-item img[alt*="Trusted Provider"] {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--accent-orange) 50%);
 }
 
 .gallery-item:hover img {
