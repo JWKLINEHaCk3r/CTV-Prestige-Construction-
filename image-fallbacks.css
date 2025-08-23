@@ -36,8 +36,8 @@
 .gallery-item img[src*="welding-project-1"]:before {
     content: '⚡';
     font-size: 4rem;
-    color: var(--primary-orange);
-    text-shadow: 0 0 20px var(--primary-orange);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
 }
 
 .gallery-item img[src*="welding-project-1"]:after {
@@ -59,8 +59,8 @@
     content: '🔧';
     font-size: 4rem;
     position: absolute;
-    color: var(--primary-orange);
-    text-shadow: 0 0 20px var(--primary-orange);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
 }
 
 .gallery-item img[src*="welding-project-2"]:after {
@@ -83,8 +83,8 @@
     content: '🚛';
     font-size: 4rem;
     position: absolute;
-    color: var(--primary-orange);
-    text-shadow: 0 0 20px var(--primary-orange);
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
 }
 
 .gallery-item img[src*="container-repair-1"]:after {
@@ -197,18 +197,6 @@ img[src$=".jpeg"][src*="missing"] {
 
 img:not([src]):before,
 img[src=""]:before,
-img[src$=".jpg"][src*="missing"]:before,
-img[src$=".png"][src*="missing"]:before,
-img[src$=".jpeg"][src*="missing"]:before {
-    content: '🏗️';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 4rem;
-    color: var(--primary-orange);
-    text-shadow: 0 0 20px var(--primary-orange);
-}
 
 img:not([src]):after,
 img[src=""]:after,

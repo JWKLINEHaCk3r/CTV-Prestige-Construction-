@@ -23,19 +23,19 @@ body::before {
 }
 
 :root {
-    --primary-color: #ff7700;
-    --primary-dark: #ff5500;
-    --primary-light: #ff9930;
-    --bg-dark: #000000;
-    --bg-darker: #0a0a0a;
-    --bg-card: #1a1a1a;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --border-color: #333333;
-    --border-light: #374151;
-    --success: #059669;
-    --error: #dc2626;
+    --primary-color: #ff5500; /* Darker orange */
+    --primary-dark: #ff7700; /* Original primary color */
+    --primary-light: #ff9930; /* Lighter orange */
+    --bg-dark: #000000; /* Black background */
+    --bg-darker: #0a0a0a; /* Darker shade of black */
+    --bg-card: #1a1a1a; /* Dark card background */
+    --text-primary: #ffffff; /* White text for better contrast */
+    --text-secondary: #ff7700; /* Orange for secondary text */
+    --text-muted: #94a3b8; /* Muted text color */
+    --border-color: #333333; /* Dark border */
+    --border-light: #374151; /* Light border */
+    --success: #059669; /* Green for success messages */
+    --error: #dc2626; /* Red for error messages */
     --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 15px 35px rgba(255, 119, 0, 0.2);
 }

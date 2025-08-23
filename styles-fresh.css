@@ -1,18 +1,18 @@
 /* FRESH CSS - CTV PRESTIGE CONSTRUCTION */
 :root {
-    --primary-orange: #ff7700;
-    --secondary-orange: #ff5500;
-    --accent-orange: #ff9930;
-    --bg-dark: #000000;
+    --primary-orange: #ff8c00; /* Updated to a more sophisticated shade */
+    --secondary-orange: #ff6f00; /* Adjusted for better contrast */
+    --accent-orange: #ff9930; /* Kept for accent */
+    --bg-dark: #000000; /* Maintained */
     --bg-card: rgba(255, 255, 255, 0.05);
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-    --border-primary: rgba(255, 119, 0, 0.3);
-    --border-hover: rgba(255, 119, 0, 0.6);
-    --shadow-primary: rgba(255, 119, 0, 0.2);
+    --text-primary: #ffffff; /* Maintained */
+    --text-secondary: #e0e0e0; /* Adjusted for better readability */
+    --border-primary: rgba(255, 140, 0, 0.5); /* Enhanced visibility */
+    --border-hover: rgba(255, 140, 0, 0.8); /* Stronger hover effect */
+    --shadow-primary: rgba(255, 140, 0, 0.3);
     --glass-bg: rgba(0, 0, 0, 0.8);
-    --gradient-primary: linear-gradient(135deg, #ff7700 0%, #ff5500 50%, #ff9930 100%);
-    --gradient-secondary: linear-gradient(135deg, rgba(255, 119, 0, 0.8) 0%, rgba(255, 85, 0, 0.6) 100%);
+    --gradient-primary: linear-gradient(135deg, #ff8c00 0%, #ff6f00 50%, #ff9930 100%); /* Updated gradient */
+    --gradient-secondary: linear-gradient(135deg, rgba(255, 140, 0, 0.8) 0%, rgba(255, 111, 0, 0.6) 100%);
 }
 
 * {
@@ -166,7 +166,6 @@ body {
     white-space: nowrap;
     line-height: 1.2;
     letter-spacing: 0.5px;
-}
 }
 
 .nav-menu {
@@ -1334,8 +1333,8 @@ section {
 /* High DPI Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .site-logo {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
+        image-rendering: -webkit-optimize-contrast; /* Edge/WebKit compatibility */
+        image-rendering: crisp-edges; /* Standard property */
     }
 }
 
