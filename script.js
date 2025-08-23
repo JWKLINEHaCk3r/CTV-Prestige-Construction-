@@ -30,9 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load gallery images from localStorage with loading states
 function loadGalleryImages() {
-    const galleryContainer = document.getElementById('gallery-container');
+    const galleryContainer = document.getElementById('uploaded-gallery-container');
     if (!galleryContainer) return;
-
+    
     // Show loading state
     galleryContainer.innerHTML = `
         <div class="gallery-placeholder">
@@ -40,7 +40,7 @@ function loadGalleryImages() {
             <p>Loading gallery...</p>
         </div>
     `;
-
+    
     setTimeout(() => {
         try {
             const savedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
@@ -57,7 +57,7 @@ function loadGalleryImages() {
                 `;
                 return;
             }
-
+            
             // Clear and show images
             galleryContainer.innerHTML = '';
             
@@ -127,66 +127,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-// Initialize scroll animations using observer manager
-function initScrollAnimations() {
-    // Check if observer manager is available
-    if (typeof window.observerManager === 'undefined') {
-        console.warn('Observer manager not available, falling back to direct IntersectionObserver');
-        initScrollAnimationsFallback();
-        return;
+    // Initialize scroll animations using observer manager
+    function initScrollAnimations() {
+        // Check if observer manager is available
+        if (typeof window.observerManager === 'undefined') {
+            console.warn('Observer manager not available, falling back to direct IntersectionObserver');
+            initScrollAnimationsFallback();
+            return;
+        }
+
+        try {
+            // Create scroll animation observer using the manager
+            const observerId = window.observerManager.createScrollAnimationObserver();
+            
+            // Observe elements for scroll animations
+            document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                window.observerManager.observeElement(observerId, el);
+            });
+
+            console.log('✅ Scroll animations initialized with observer manager');
+
+        } catch (error) {
+            console.error('Failed to initialize scroll animations with observer manager:', error);
+            initScrollAnimationsFallback();
+        }
     }
 
-    try {
-        // Create scroll animation observer using the manager
-        const observerId = window.observerManager.createScrollAnimationObserver();
-        
+    // Fallback implementation if observer manager fails
+    function initScrollAnimationsFallback() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    // Stop observing after animation
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
         // Observe elements for scroll animations
         document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            window.observerManager.observeElement(observerId, el);
+            observer.observe(el);
         });
 
-        console.log('✅ Scroll animations initialized with observer manager');
-
-    } catch (error) {
-        console.error('Failed to initialize scroll animations with observer manager:', error);
-        initScrollAnimationsFallback();
+        console.log('⚠️ Scroll animations using fallback IntersectionObserver');
     }
-}
 
-// Fallback implementation if observer manager fails
-function initScrollAnimationsFallback() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                // Stop observing after animation
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for scroll animations
-    document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        observer.observe(el);
-    });
-
-    console.log('⚠️ Scroll animations using fallback IntersectionObserver');
-}
-
-// Initialize scroll animations on load
-initScrollAnimations();
+    // Initialize scroll animations on load
+    initScrollAnimations();
 
     // Add navbar background on scroll
     window.addEventListener('scroll', function() {

@@ -1,18 +1,22 @@
 /* FRESH CSS - CTV PRESTIGE CONSTRUCTION */
 :root {
-    --primary-orange: #ff8c00; /* Updated to a more sophisticated shade */
-    --secondary-orange: #ff6f00; /* Adjusted for better contrast */
-    --accent-orange: #ff9930; /* Kept for accent */
-    --bg-dark: #000000; /* Maintained */
-    --bg-card: rgba(255, 255, 255, 0.05);
-    --text-primary: #ffffff; /* Maintained */
-    --text-secondary: #e0e0e0; /* Adjusted for better readability */
-    --border-primary: rgba(255, 140, 0, 0.5); /* Enhanced visibility */
-    --border-hover: rgba(255, 140, 0, 0.8); /* Stronger hover effect */
-    --shadow-primary: rgba(255, 140, 0, 0.3);
-    --glass-bg: rgba(0, 0, 0, 0.8);
-    --gradient-primary: linear-gradient(135deg, #ff8c00 0%, #ff6f00 50%, #ff9930 100%); /* Updated gradient */
-    --gradient-secondary: linear-gradient(135deg, rgba(255, 140, 0, 0.8) 0%, rgba(255, 111, 0, 0.6) 100%);
+    --primary-black: #000000; /* Dominant black color */
+    --secondary-black: #1a1a1a; /* Secondary black for depth */
+    --tertiary-black: #2d2d2d; /* Lighter black for contrast */
+    --accent-orange: #ff8c00; /* Orange accents like the logo */
+    --accent-orange-hover: #ff6f00; /* Darker orange for hover states */
+    --bg-dark: #000000; /* Main background */
+    --bg-card: rgba(26, 26, 26, 0.95); /* Card backgrounds in dark gray */
+    --text-primary: #ffffff; /* White text on black */
+    --text-secondary: #e0e0e0; /* Light gray text */
+    --text-accent: #ff8c00; /* Orange text for accents */
+    --border-primary: rgba(45, 45, 45, 0.8); /* Dark gray borders */
+    --border-hover: rgba(255, 140, 0, 0.6); /* Orange hover borders */
+    --shadow-primary: rgba(0, 0, 0, 0.8); /* Black shadows */
+    --shadow-accent: rgba(255, 140, 0, 0.3); /* Orange accent shadows */
+    --glass-bg: rgba(0, 0, 0, 0.9); /* Glass effect background */
+    --gradient-primary: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%); /* Black gradient */
+    --gradient-accent: linear-gradient(135deg, #000000 0%, rgba(255, 140, 0, 0.1) 100%); /* Black with orange hint */
 }
 
 * {
@@ -58,8 +62,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 80px;
-    flex-wrap: nowrap;
+    
 }
 
 .nav-logo {
@@ -101,18 +104,18 @@ body {
     border-color: var(--border-hover);
     box-shadow: 
         0 12px 40px var(--shadow-primary),
-        0 4px 16px rgba(255, 119, 0, 0.4),
+        0 4px 16px var(--shadow-accent),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .site-logo {
     height: 64px;
     width: 64px;
-    filter: drop-shadow(0 4px 12px rgba(255, 119, 0, 0.3));
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     border-radius: 12px;
-    border: 2px solid rgba(255, 119, 0, 0.2);
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+    border: 2px solid var(--border-primary);
+    background: var(--gradient-primary);
     padding: 4px;
     object-fit: contain;
     position: relative;
@@ -136,7 +139,7 @@ body {
 .site-logo:broken,
 .site-logo[src=""],
 .site-logo[src*="missing"] {
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+    background: var(--gradient-accent);
 }
 
 .site-logo:broken:after,
@@ -147,8 +150,8 @@ body {
 
 .site-logo:hover {
     transform: scale(1.08);
-    filter: drop-shadow(0 8px 20px rgba(255, 119, 0, 0.6));
-    border-color: rgba(255, 119, 0, 0.6);
+    filter: drop-shadow(0 8px 20px var(--border-hover));
+    border-color: var(--border-hover);
     background: rgba(0, 0, 0, 0.5);
 }
 
@@ -200,7 +203,7 @@ body {
 
 .nav-link:hover {
     background: var(--bg-card);
-    color: var(--primary-orange);
+    color: var(--accent-orange);
     border-color: var(--border-primary);
     transform: translateY(-1px);
 }
@@ -230,7 +233,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(255, 119, 0, 0.05) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
     z-index: 1;
 }
 
@@ -249,11 +252,11 @@ body {
     width: 120px;
     height: 120px;
     border-radius: 20px;
-    border: 3px solid var(--primary-orange);
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+    border: 3px solid var(--accent-orange);
+    background: var(--gradient-accent);
     padding: 8px;
     object-fit: contain;
-    filter: drop-shadow(0 8px 25px rgba(255, 119, 0, 0.4));
+    filter: drop-shadow(0 8px 25px var(--shadow-accent));
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     animation: heroLogoFloat 3s ease-in-out infinite;
     position: relative;
@@ -286,7 +289,7 @@ body {
 .hero-logo-img:hover {
     transform: scale(1.1);
     border-color: var(--accent-orange);
-    filter: drop-shadow(0 12px 35px rgba(255, 119, 0, 0.6));
+    filter: drop-shadow(0 12px 35px var(--border-hover));
 }
 
 @keyframes heroLogoFloat {
@@ -349,7 +352,7 @@ body {
     transform: translateY(-3px);
     box-shadow: 
         0 12px 35px var(--shadow-primary),
-        0 4px 16px rgba(255, 119, 0, 0.4);
+        0 4px 16px var(--shadow-accent);
     border-color: var(--accent-orange);
 }
 
@@ -451,7 +454,7 @@ section {
 }
 
 .service-card h3 {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -502,7 +505,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(255, 119, 0, 0.4);
+    box-shadow: 0 4px 12px var(--shadow-accent);
     transition: all 0.3s ease;
 }
 
@@ -514,7 +517,7 @@ section {
 
 .service-with-image:hover .service-image-overlay {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(255, 119, 0, 0.6);
+    box-shadow: 0 6px 20px var(--border-hover);
 }
 
 .service-content {
@@ -525,7 +528,7 @@ section {
 }
 
 .service-content h3 {
-    color: var(--primary-orange);
+    color: var(--accent-orange);
     font-size: 1.4rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -550,7 +553,7 @@ section {
     text-align: center;
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: var(--primary-orange);
+    color: var(--accent-orange);
     font-weight: 600;
     position: relative;
 }
@@ -639,12 +642,12 @@ section {
 /* Image loading error fallbacks */
 .gallery-item img[alt*="Professional Branding"],
 .gallery-item img[alt*="Company Identity"] {
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #ff9930 100%);
+    background: var(--gradient-accent);
 }
 
 .gallery-item img[alt*="Professional Standards"],
 .gallery-item img[alt*="Quality Assurance"] {
-    background: linear-gradient(135deg, #1a1a1a 0%, var(--accent-orange) 100%);
+    background: linear-gradient(135deg, var(--secondary-black) 0%, var(--accent-orange) 100%);
 }
 
 .gallery-item img[alt*="Service Excellence"],
@@ -693,7 +696,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(255, 119, 0, 0.05) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(255, 140, 0, 0.05) 0%, transparent 70%);
     z-index: 1;
 }
 
@@ -746,7 +749,7 @@ section {
     transform: translateY(-3px);
     box-shadow: 
         0 12px 35px var(--shadow-primary),
-        0 4px 16px rgba(255, 119, 0, 0.4);
+        0 4px 16px var(--shadow-accent);
     border-color: var(--accent-orange);
 }
 
@@ -769,7 +772,7 @@ section {
 }
 
 .contact-info h3 {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -783,7 +786,7 @@ section {
 }
 
 .contact-info a {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -809,7 +812,7 @@ section {
 }
 
 .footer-section h3 {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -872,7 +875,7 @@ section {
 }
 
 .document-container h3 {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     font-size: 1.5rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -917,7 +920,7 @@ section {
 
 .document-placeholder p:first-child {
     font-size: 1.2rem;
-    color: var(--primary-orange);
+    color: var(--accent-orange);
     margin-bottom: 1.5rem;
 }
 
@@ -929,7 +932,7 @@ section {
 
 /* Document Gallery Items */
 .document-item {
-    border: 2px solid var(--primary-orange);
+    border: 2px solid var(--accent-orange);
     border-radius: 12px;
     overflow: hidden;
     position: relative;
@@ -940,7 +943,7 @@ section {
     position: absolute;
     top: 12px;
     right: 12px;
-    background: var(--primary-orange);
+    background: var(--accent-orange);
     color: white;
     width: 40px;
     height: 40px;
@@ -950,7 +953,7 @@ section {
     justify-content: center;
     font-size: 1.2rem;
     z-index: 2;
-    box-shadow: 0 2px 8px rgba(255, 119, 0, 0.4);
+    box-shadow: 0 2px 8px var(--shadow-accent);
 }
 
 .document-overlay {
@@ -986,7 +989,7 @@ section {
 
 .document-item:hover::before {
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(255, 119, 0, 0.6);
+    box-shadow: 0 4px 12px var(--border-hover);
 }
 
 /* Make document images fit nicely */
@@ -1021,7 +1024,7 @@ section {
 .featured-logo:hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: 
-        0 20px 45px rgba(255, 119, 0, 0.4),
+        0 20px 45px var(--shadow-accent),
         0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -1087,7 +1090,7 @@ section {
     max-height: 90vh;
     overflow: auto;
     box-shadow: 0 20px 60px rgba(255, 119, 0, 0.3);
-    border: 2px solid var(--primary-orange);
+    border: 2px solid var(--accent-orange);
 }
 
 .document-modal-close {
@@ -1110,7 +1113,7 @@ section {
 }
 
 .document-modal-close:hover {
-    background: var(--primary-orange);
+    background: var(--accent-orange);
     color: white;
     transform: scale(1.1);
 }
@@ -1134,7 +1137,7 @@ section {
 }
 
 .document-modal-info h3 {
-    color: var(--primary-orange);
+    color: #ffffff; /* Changed to white for better contrast */
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
 }
@@ -1334,7 +1337,7 @@ section {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .site-logo {
         image-rendering: -webkit-optimize-contrast; /* Edge/WebKit compatibility */
-        image-rendering: crisp-edges; /* Standard property */
+        /* image-rendering: crisp-edges; */ /* Standard property */
     }
 }
 
@@ -1351,7 +1354,7 @@ section {
 .nav-link:focus,
 .cta-button:focus,
 .email-button:focus {
-    outline: 2px solid var(--primary-orange);
+    outline: 2px solid var(--accent-orange);
     outline-offset: 2px;
 }
 

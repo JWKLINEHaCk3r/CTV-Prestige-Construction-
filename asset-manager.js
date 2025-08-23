@@ -3,7 +3,7 @@
 
 class AssetManager {
     constructor() {
-        const logoConfig = {
+        this.logoAssets = {
             primary: 'assets/Finallogo.png',
             fallback: 'assets/Finallogo.png',
             sources: [

@@ -197,6 +197,18 @@ img[src$=".jpeg"][src*="missing"] {
 
 img:not([src]):before,
 img[src=""]:before,
+img[src$=".jpg"][src*="missing"]:before,
+img[src$=".png"][src*="missing"]:before,
+img[src$=".jpeg"][src*="missing"]:before {
+    content: '🏗️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+}
 
 img:not([src]):after,
 img[src=""]:after,
