@@ -1,28 +1,41 @@
-# CTV Prestige Construction - Error Fix Plan
+# CTV Image Loading Fixes - TODO
 
-## Issues Identified:
+## Current Status: 25% Success Rate (2/8 images loaded)
+**Goal: 100% Success Rate**
 
-1. **HTML Title Fix**: Fix typo in page title ✅ COMPLETED
-2. **Asset Manager Bug**: Fix constructor to use correct variable name ✅ COMPLETED
-3. **Script.js Gallery Container**: Fix ID mismatch between script and HTML ✅ COMPLETED
-4. **Script.js Syntax**: Fix missing closing brace ✅ COMPLETED
-5. **Cleanup Duplicate Code**: Remove redundant gallery loading code ✅ COMPLETED
-6. **Document Gallery Cleanup**: Remove unused document gallery code
+## Tasks to Complete:
 
-## Steps to Complete:
+### Phase 1: Diagnostic Enhancement
+- [x] Analyze current image-error-decoder.js diagnostics
+- [ ] Enhance error reporting to show specific failed image URLs
+- [ ] Add detailed error information to diagnostic panel
 
-- [x] Fix HTML title in index.html
-- [x] Fix AssetManager constructor in asset-manager.js
-- [x] Fix gallery container ID in script.js
-- [x] Fix missing brace in script.js
-- [x] Clean up duplicate gallery loading code
-- [ ] Remove unused document gallery code from index.html
-- [ ] Test the fixes by running the website
+### Phase 2: Image Path Verification  
+- [ ] Test all image paths for accessibility
+- [ ] Verify server configuration for image serving
+- [ ] Check file permissions on image assets
 
-## Next Steps:
+### Phase 3: Code Improvements
+- [ ] Update image-error-decoder.js with better error handling
+- [ ] Enhance image-recovery.js fallback mechanisms
+- [ ] Add comprehensive image testing utility
 
-- Test the website to ensure all fixes work correctly
-- Remove any unused document gallery code from index.html
-- Verify that the gallery loads properly with the correct container ID
-- Check that the AssetManager works without errors
-- Ensure the page title displays correctly
+### Phase 4: Testing & Validation
+- [ ] Test website locally to reproduce issues
+- [ ] Verify all fixes work correctly
+- [ ] Confirm 100% image loading success rate
+
+## Image Inventory:
+1. ✅ assets/Finallogo.png (Navigation)
+2. ✅ assets/Finallogo.png (Hero section) 
+3. ❌ assets/sample-photos/welding/welding-project-1.jpg
+4. ❌ assets/sample-photos/welding/welding-project-2.jpg
+5. ❌ assets/sample-photos/container-repair/container-repair-1.jpg
+6. ❌ assets/sample-photos/container-repair/container-repair-2.jpg
+7. ❌ assets/sample-photos/pressure-washing/pressure-washing-1.jpg
+8. ❌ assets/sample-photos/pressure-washing/pressure-washing-2.jpg
+
+## Progress Tracking:
+- **Started**: Investigating image loading failures
+- **Current**: Enhancing diagnostic capabilities
+- **Next**: Implementing comprehensive fixes

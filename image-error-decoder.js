@@ -235,28 +235,30 @@ class ImageErrorDecoder {
         panel.id = 'image-diagnostic-panel';
         panel.style.cssText = `
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 10px;
+            right: 10px;
             background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
-            border: 2px solid #ff7700;
-            border-radius: 12px;
-            padding: 15px;
+            border: 1px solid #ff7700;
+            border-radius: 8px;
+            padding: 8px;
             color: white;
             font-family: 'Inter', monospace;
-            font-size: 12px;
+            font-size: 10px;
             z-index: 10000;
-            max-width: 300px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            max-width: 150px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            opacity: 0.9;
         `;
 
         const header = document.createElement('div');
-        header.innerHTML = '🔧 CTV Image Diagnostics';
+        header.innerHTML = '🔧 Diagnostics';
         header.style.cssText = `
             font-weight: bold;
             color: #ff7700;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             text-align: center;
+            font-size: 9px;
         `;
 
         const stats = document.createElement('div');
@@ -266,16 +268,17 @@ class ImageErrorDecoder {
         closeBtn.innerHTML = '×';
         closeBtn.style.cssText = `
             position: absolute;
-            top: 5px;
-            right: 10px;
+            top: 2px;
+            right: 5px;
             background: none;
             border: none;
             color: #ff7700;
-            font-size: 18px;
+            font-size: 12px;
             cursor: pointer;
             padding: 0;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
+            line-height: 12px;
         `;
         closeBtn.onclick = () => panel.style.display = 'none';
 
@@ -293,19 +296,38 @@ class ImageErrorDecoder {
         if (!statsDiv) return;
 
         const { totalImages, loadedImages, failedImages, missingImages, brokenUrls } = this.diagnostics;
+        const successRate = totalImages > 0 ? Math.round((loadedImages / totalImages) * 100) : 0;
         
+        // Compact view with minimal information
         statsDiv.innerHTML = `
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
-                <div>📊 Total: <span style="color: #00aaff;">${totalImages}</span></div>
-                <div>✅ Loaded: <span style="color: #00ff88;">${loadedImages}</span></div>
-                <div>❌ Failed: <span style="color: #ff4444;">${failedImages}</span></div>
-                <div>🚫 Missing: <span style="color: #ffaa00;">${missingImages}</span></div>
-                <div>🔗 Broken URLs: <span style="color: #ff6600;">${brokenUrls}</span></div>
-                <div>🔧 Fixes: <span style="color: #ff7700;">${this.fixes.length}</span></div>
+            <div style="font-size: 8px; line-height: 1.2;">
+                <div>📊 ${totalImages} | ✅ ${loadedImages}</div>
+                <div>❌ ${failedImages} | 🔧 ${this.fixes.length}</div>
+                <div style="color: #00ff88; margin-top: 2px;">
+                    ${successRate}% OK
+                </div>
+                ${failedImages > 0 ? `
+                <div style="margin-top: 3px; padding-top: 3px; border-top: 1px solid #444;">
+                    <button onclick="console.log(window.imageErrorDecoder.errors)" style="
+                        background: #ff7700;
+                        border: none;
+                        color: white;
+                        padding: 2px 4px;
+                        border-radius: 3px;
+                        cursor: pointer;
+                        font-size: 7px;
+                    ">View Errors</button>
+                </div>
+                ` : ''}
             </div>
-            <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #444;">
-                <div style="font-size: 10px; color: #ccc;">
-                    Success Rate: ${totalImages > 0 ? Math.round((loadedImages / totalImages) * 100) : 0}%
+        `;
+    }
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        font-size: 9px;
+                    ">Refresh Diagnostics</button>
                 </div>
             </div>
         `;
