@@ -9,7 +9,9 @@
     <meta name="author" content="CTV Prestige Construction">
     
     <!-- Favicon -->
-    <!-- Removed logo references -->
+    <link rel="icon" type="image/png" href="images/Aspose.Words.a044af3b-87fe-4551-b391-2dc8b24fb2c6.001.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/Aspose.Words.a044af3b-87fe-4551-b391-2dc8b24fb2c6.001.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="images/Aspose.Words.a044af3b-87fe-4551-b391-2dc8b24fb2c6.001.png">
     
     <!-- Preload critical resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,8 +52,8 @@
             left: 0;
             right: 0;
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-primary);
             z-index: 1000;
             padding: 8px 0;
@@ -81,6 +83,23 @@
         .nav-logo:hover {
             border-color: var(--border-hover);
             background: rgba(255, 119, 0, 0.15);
+            transform: translateY(-1px);
+        }
+        
+        /* Admin site logo specific styling */
+        .nav-logo .site-logo {
+            border-radius: 8px;
+            border: 2px solid var(--primary-orange);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(255, 119, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-logo:hover .site-logo {
+            transform: scale(1.05);
+            border-color: var(--accent-orange);
+            box-shadow: 0 4px 12px rgba(255, 119, 0, 0.4);
         }
         
         .site-logo {
@@ -130,6 +149,51 @@
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+        
+        /* Upload Guidelines Styling */
+        .upload-guidelines {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .upload-guidelines h4 {
+            margin: 0 0 0.5rem 0;
+            color: #0ea5e9;
+        }
+        
+        .upload-guidelines ul {
+            margin: 0;
+            padding-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Clear All Button Container */
+        .clear-all-container {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        /* Clear All Button Styling */
+        .clear-all-button {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            width: auto;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-all-button:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
         
         /* Enhanced admin styling */
@@ -253,7 +317,11 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/IMG_8691.PNG" alt="CTV Prestige Construction Logo" class="site-logo" width="48" height="48" />
+                <img src="images/Aspose.Words.a044af3b-87fe-4551-b391-2dc8b24fb2c6.001.png" 
+                     alt="CTV Prestige Construction Final Logo" 
+                     class="site-logo" 
+                     width="40" 
+                     height="40" />
                 <span>Admin Panel</span>
             </div>
             <div class="nav-menu">
@@ -283,9 +351,9 @@
         <h2>Photo Upload Dashboard</h2>
         <p>Upload images to display on the website gallery</p>
         
-        <div style="background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 1rem; margin-bottom: 2rem;">
-            <h4 style="margin: 0 0 0.5rem 0; color: #0ea5e9;">📋 Upload Guidelines</h4>
-            <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.9rem;">
+        <div class="upload-guidelines">
+            <h4>📋 Upload Guidelines</h4>
+            <ul>
                 <li>Supported formats: JPG, PNG, WebP</li>
                 <li>Maximum file size: 2MB</li>
                 <li>Images automatically compressed to 600px max and 50% quality</li>
@@ -318,8 +386,8 @@
 
         <div class="gallery-section">
             <h3>Current Gallery Images</h3>
-            <div style="margin-bottom: 1rem; text-align: center;">
-                <button onclick="clearAllImages()" class="admin-button" style="background: linear-gradient(135deg, #dc2626, #b91c1c); width: auto; padding: 0.5rem 1rem; font-size: 0.9rem;">
+            <div class="clear-all-container">
+                <button onclick="clearAllImages()" class="admin-button clear-all-button">
                     Clear All Images
                 </button>
             </div>

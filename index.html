@@ -185,6 +185,47 @@
                         <span>Industrial Cleaning Services</span>
                     </div>
                 </div>
+                
+                <!-- Professional Documentation Gallery Items -->
+                <div class="gallery-item document-item">
+                    <img src="images/Aspose.Words.e03f312d-434e-4c3d-8dbc-65af5ee480ef.001.jpeg" 
+                         alt="CTV Prestige Construction - Professional Documentation Sample 1" 
+                         loading="lazy">
+                    <div class="gallery-overlay document-overlay">
+                        <span>� Business License</span>
+                        <p>Professional Business Registration</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item document-item">
+                    <img src="images/Aspose.Words.b92a977a-6b2e-451e-86e4-140e76d42fa8.001.jpeg" 
+                         alt="CTV Prestige Construction - Professional Documentation Sample 2" 
+                         loading="lazy">
+                    <div class="gallery-overlay document-overlay">
+                        <span>� Insurance Documentation</span>
+                        <p>Professional Liability & Coverage</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item document-item">
+                    <img src="images/Aspose.Words.28ff23b6-15b1-47c9-ad9a-030a762d662e.001.jpeg" 
+                         alt="CTV Prestige Construction - Professional Documentation Sample 4" 
+                         loading="lazy">
+                    <div class="gallery-overlay document-overlay">
+                        <span>🔧 Professional Certifications</span>
+                        <p>Welding & Construction Credentials</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item document-item">
+                    <img src="images/Aspose.Words.0487fede-faa4-4e2e-8943-6c31d7f8a06a.001.jpeg" 
+                         alt="CTV Prestige Construction - Professional Documentation Sample 6" 
+                         loading="lazy">
+                    <div class="gallery-overlay document-overlay">
+                        <span>⚡ Safety Compliance</span>
+                        <p>Safety Standards & Protocols</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -313,6 +354,53 @@
                         });
                     }
                 });
+            });
+            
+            // Document gallery item click handlers
+            document.querySelectorAll('.document-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    const imgSrc = img.getAttribute('src');
+                    const imgAlt = img.getAttribute('alt');
+                    
+                    // Create modal for document viewing
+                    const modal = document.createElement('div');
+                    modal.className = 'document-modal';
+                    modal.innerHTML = `
+                        <div class="document-modal-content">
+                            <span class="document-modal-close">&times;</span>
+                            <img src="${imgSrc}" alt="${imgAlt}" class="document-modal-image">
+                            <div class="document-modal-info">
+                                <h3>${imgAlt}</h3>
+                                <p>Click image to view full size</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(modal);
+                    modal.style.display = 'flex';
+                    
+                    // Close modal functionality
+                    const closeBtn = modal.querySelector('.document-modal-close');
+                    closeBtn.onclick = () => {
+                        modal.remove();
+                    };
+                    
+                    modal.onclick = (e) => {
+                        if (e.target === modal) {
+                            modal.remove();
+                        }
+                    };
+                    
+                    // Full size image view
+                    const modalImg = modal.querySelector('.document-modal-image');
+                    modalImg.onclick = () => {
+                        window.open(imgSrc, '_blank');
+                    };
+                });
+                
+                // Add cursor pointer
+                item.style.cursor = 'pointer';
             });
         });
     
