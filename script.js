@@ -127,8 +127,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-// Initialize scroll animations
+// Initialize scroll animations using observer manager
 function initScrollAnimations() {
+    // Check if observer manager is available
+    if (typeof window.observerManager === 'undefined') {
+        console.warn('Observer manager not available, falling back to direct IntersectionObserver');
+        initScrollAnimationsFallback();
+        return;
+    }
+
+    try {
+        // Create scroll animation observer using the manager
+        const observerId = window.observerManager.createScrollAnimationObserver();
+        
+        // Observe elements for scroll animations
+        document.querySelectorAll('.service-card, .gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            window.observerManager.observeElement(observerId, el);
+        });
+
+        console.log('✅ Scroll animations initialized with observer manager');
+
+    } catch (error) {
+        console.error('Failed to initialize scroll animations with observer manager:', error);
+        initScrollAnimationsFallback();
+    }
+}
+
+// Fallback implementation if observer manager fails
+function initScrollAnimationsFallback() {
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -152,6 +181,8 @@ function initScrollAnimations() {
         el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(el);
     });
+
+    console.log('⚠️ Scroll animations using fallback IntersectionObserver');
 }
 
 // Initialize scroll animations on load

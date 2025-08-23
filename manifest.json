@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "assets/IMG_8691.PNG",
+      "src": "images/ctv-final-logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "assets/IMG_8691.PNG",
+      "src": "images/ctv-final-logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"

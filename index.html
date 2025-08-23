@@ -10,15 +10,15 @@
     <link rel="canonical" href="https://ctvprestigeconstruction.com">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/IMG_8691.PNG" sizes="32x32">
-    <link rel="icon" type="image/png" href="assets/IMG_8691.PNG" sizes="16x16">
-    <link rel="apple-touch-icon" href="assets/IMG_8691.PNG">
+    <link rel="icon" type="image/png" href="images/ctv-final-logo.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/ctv-final-logo.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="images/ctv-final-logo.png">
     <link rel="manifest" href="manifest.json">
     
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="CTV Prestige Construction - Professional Mobile Welding Services">
     <meta property="og:description" content="Expert mobile welding and container repair services for the waste management industry">
-    <meta property="og:image" content="assets/IMG_8691.PNG">
+    <meta property="og:image" content="images/ctv-final-logo.png">
     <meta property="og:url" content="https://ctvprestigeconstruction.com">
     <meta property="og:type" content="website">
     
@@ -93,7 +93,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/IMG_8691.PNG" alt="CTV Prestige Construction Logo - Professional Mobile Welding Services in Florida" class="site-logo" width="64" height="64" loading="eager" />
+                <img src="images/ctv-final-logo.png" alt="CTV Prestige Construction Logo - Professional Mobile Welding Services in Florida" class="site-logo" width="64" height="64" loading="eager" />
                 <span class="nav-tagline">Mobile Welding & Repair</span>
             </div>
             <div class="nav-menu">
@@ -109,7 +109,7 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-logo">
-                <img src="assets/IMG_8691.PNG" alt="CTV Prestige Construction - Professional Mobile Welding Services" class="hero-logo-img" loading="eager" />
+                <img src="images/ctv-final-logo.png" alt="CTV Prestige Construction - Professional Mobile Welding Services" class="hero-logo-img" loading="eager" />
             </div>
             <h1>Professional Mobile Welding & Repair Services</h1>
             <p>Expert container repair and welding services for the waste management industry</p>
@@ -226,6 +226,17 @@
                         <p>Safety Standards & Protocols</p>
                     </div>
                 </div>
+                
+                <!-- Final Professional Logo Display -->
+                <div class="gallery-item document-item featured-logo">
+                    <img src="images/ctv-final-logo.png" 
+                         alt="CTV Prestige Construction - Official Professional Logo" 
+                         loading="lazy">
+                    <div class="gallery-overlay document-overlay logo-overlay">
+                        <span>🏢 Official Company Logo</span>
+                        <p>Professional Brand Identity</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -274,23 +285,24 @@
     </footer>
 
     <script src="script.js"></script>
-        ipt> with pagination
+    <script>
         // Load additional gallery images from localStorage
         function loadGalleryImages() {
             const galleryContainer = document.getElementById('gallery-container');
             const savedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
             
-            // Add any additiona(l images ,findex) rom localStorage to existing gallery
-            savedImages.forEach(imageData => {
+            // Add any additional images from localStorage to existing gallery
+            savedImages.forEach((imageData, index) => {
                 const imgElement = document.createElement('div');
                 imgElement.className = 'gallery-item';
-                imgElement.innerHTML = ` - ${imageData.name || 'Professional Work'}
+                imgElement.innerHTML = `
                     <img src="${imageData.url}" alt="CTV Prestige Construction Project" loading="lazy">
-                    <div class="gallery-overle || `Project ${indax + 1}`y">
-                        <span>${imageData.name}</span>
+                    <div class="gallery-overlay">
+                        <span>${imageData.name || 'Professional Work'}</span>
                     </div>
-                `;);
-            }
+                `;
+                galleryContainer.appendChild(imgElement);
+            });
             
             // Add "Load More" functionality if more than 20 images
             if (savedImages.length > 20) {
@@ -334,8 +346,6 @@
             } else {
                 loadMoreBtn.textContent = `Load More Images (${remainingItems} remaining)`;
             }
-        }       galleryContainer.appendChild(imgElement);
-            });
         }
 
         // Initialize on load
@@ -403,6 +413,7 @@
                 item.style.cursor = 'pointer';
             });
         });
+    </script>
     
     <!-- Asset Management -->
     <script src="asset-manager.js"></script>

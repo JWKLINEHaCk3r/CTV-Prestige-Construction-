@@ -23,58 +23,65 @@ class PerformanceMonitor {
         let clsValue = 0;
         let clsEntries = [];
 
-        const observer = new PerformanceObserver((entryList) => {
+        const callback = (entryList) => {
             for (const entry of entryList.getEntries()) {
                 if (!entry.hadRecentInput) {
                     clsValue += entry.value;
                     clsEntries.push(entry);
                 }
             }
-        });
+        };
 
         try {
-            observer.observe({ type: 'layout-shift', buffered: true });
-            this.metrics.CLS = { value: clsValue, entries: clsEntries };
+            const observerId = window.observerManager.createObserver('performance', { buffered: true }, callback);
+            window.observerManager.observeElement(observerId, null, { type: 'layout-shift', buffered: true });
+            this.metrics.CLS = { value: clsValue, entries: clsEntries, observerId };
         } catch (e) {
             console.log('CLS monitoring not supported');
         }
     }
 
     monitorLCP() {
-        const observer = new PerformanceObserver((entryList) => {
+        const callback = (entryList) => {
             const entries = entryList.getEntries();
             const lastEntry = entries[entries.length - 1];
             this.metrics.LCP = lastEntry.startTime;
-        });
+        };
 
         try {
-            observer.observe({ type: 'largest-contentful-paint', buffered: true });
+            const observerId = window.observerManager.createObserver('performance', { buffered: true }, callback);
+            window.observerManager.observeElement(observerId, null, { type: 'largest-contentful-paint', buffered: true });
+            this.metrics.LCP_observerId = observerId;
         } catch (e) {
             console.log('LCP monitoring not supported');
         }
     }
 
     monitorFID() {
-        const observer = new PerformanceObserver((entryList) => {
+        const callback = (entryList) => {
             const entries = entryList.getEntries();
             this.metrics.FID = entries[0].processingStart - entries[0].startTime;
-        });
+        };
 
         try {
-            observer.observe({ type: 'first-input', buffered: true });
+            const observerId = window.observerManager.createObserver('performance', { buffered: true }, callback);
+            window.observerManager.observeElement(observerId, null, { type: 'first-input', buffered: true });
+            this.metrics.FID_observerId = observerId;
         } catch (e) {
             console.log('FID monitoring not supported');
         }
     }
 
     monitorFCP() {
-        const observer = new PerformanceObserver((entryList) => {
+        const callback = (entryList) => {
             const entries = entryList.getEntries();
             this.metrics.FCP = entries[0].startTime;
-        });
+        };
 
         try {
-            observer.observe({ type: 'paint', buffered: true });
+            const observerId = window.observerManager.createObserver('performance', { buffered: true }, callback);
+            window.observerManager.observeElement(observerId, null, { type: 'paint', buffered: true });
+            this.metrics.FCP_observerId = observerId;
         } catch (e) {
             console.log('FCP monitoring not supported');
         }

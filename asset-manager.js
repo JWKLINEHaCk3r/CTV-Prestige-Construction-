@@ -4,12 +4,10 @@
 class AssetManager {
     constructor() {
         this.logoAssets = {
-            primary: 'assets/ctv-logo-optimized.svg',
-            fallback: 'assets/ctv-logo-final.png',
+            primary: 'images/ctv-final-logo.png',
+            fallback: 'images/ctv-final-logo.png',
             variations: [
-                'assets/ctv-logo.svg',
-                'assets/ctv-logo-ultimate.png',
-                'assets/ctv-logo-professional.png'
+                'images/ctv-final-logo.png'
             ]
         };
         
@@ -140,7 +138,7 @@ class AssetManager {
         
         // Log asset recommendations
         console.log('\n📋 Asset Usage Recommendations:');
-        console.log('- Use ctv-logo-optimized.svg for all web display');
+        console.log('- Use ctv-final-logo.png for all web display');
         console.log('- Brand colors: Orange #FF7700, Silver #C0C0C0, Black #000000');
         console.log('- Replace generic photos with branded elements');
         console.log('- Maintain professional construction aesthetic');
