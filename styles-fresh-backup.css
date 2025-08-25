@@ -1,4 +1,4 @@
-/* FRESH CSS - CTV PRESTIGE CONSTRUCTION - Updated for Text Visibility */
+/* FRESH CSS - CTV PRESTIGE CONSTRUCTION */
 :root {
     --primary-black: #000000; /* Dominant black color */
     --secondary-black: #1a1a1a; /* Secondary black for depth */
@@ -600,6 +600,8 @@ section {
     font-size: 1.1rem;
     font-weight: 600;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+    border-radius: 2px;
 }
 
 /* Gallery Section */

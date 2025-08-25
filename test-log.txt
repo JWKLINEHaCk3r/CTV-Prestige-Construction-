@@ -1,0 +1,1 @@
+Testing image loading and text visibility on the webpage.
