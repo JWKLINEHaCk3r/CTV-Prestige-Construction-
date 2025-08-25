@@ -231,6 +231,10 @@
     <script>
         // Load additional gallery images from localStorage
         function loadGalleryImages() {
+            // Note: Now using static portfolio grid instead of dynamic loading
+            console.log('📝 Using static portfolio grid - dynamic gallery loading disabled');
+            return; // Exit early since we're using static portfolio
+            
             const galleryContainer = document.getElementById('uploaded-gallery-container');
             const savedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
             
@@ -309,52 +313,7 @@
                 });
             });
             
-            // Document gallery item click handlers
-            document.querySelectorAll('.document-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const img = this.querySelector('img');
-                    const imgSrc = img.getAttribute('src');
-                    const imgAlt = img.getAttribute('alt');
-                    
-                    // Create modal for document viewing
-                    const modal = document.createElement('div');
-                    modal.className = 'document-modal';
-                    modal.innerHTML = `
-                        <div class="document-modal-content">
-                            <span class="document-modal-close">&times;</span>
-                            <img src="${imgSrc}" alt="${imgAlt}" class="document-modal-image">
-                            <div class="document-modal-info">
-                                <h3>${imgAlt}</h3>
-                                <p>Click image to view full size</p>
-                            </div>
-                        </div>
-                    `;
-                    
-                    document.body.appendChild(modal);
-                    modal.style.display = 'flex';
-                    
-                    // Close modal functionality
-                    const closeBtn = modal.querySelector('.document-modal-close');
-                    closeBtn.onclick = () => {
-                        modal.remove();
-                    };
-                    
-                    modal.onclick = (e) => {
-                        if (e.target === modal) {
-                            modal.remove();
-                        }
-                    };
-                    
-                    // Full size image view
-                    const modalImg = modal.querySelector('.document-modal-image');
-                    modalImg.onclick = () => {
-                        window.open(imgSrc, '_blank');
-                    };
-                });
-                
-                // Add cursor pointer
-                item.style.cursor = 'pointer';
-            });
+            console.log('🏗️ CTV Prestige Construction - Page Loaded');
         });
     </script>
     
@@ -363,6 +322,7 @@
     <script src="asset-manager.js"></script>
     <script src="deploy-test-script.js"></script>
     <script src="image-error-decoder.js"></script>
+    <script src="image-test-utility.js"></script>
     
     <script>
         // Initialize asset management and testing
