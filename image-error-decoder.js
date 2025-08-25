@@ -322,16 +322,6 @@ class ImageErrorDecoder {
             </div>
         `;
     }
-                        color: white;
-                        padding: 4px 8px;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-size: 9px;
-                    ">Refresh Diagnostics</button>
-                </div>
-            </div>
-        `;
-    }
 
     runDiagnostics() {
         setTimeout(() => {
