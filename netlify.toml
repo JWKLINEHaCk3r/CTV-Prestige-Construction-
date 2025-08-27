@@ -1,17 +1,33 @@
 [build]
   publish = "."
-  command = "echo 'No build command needed for static site'"
+  command = "npm run build"
+  functions = "functions"
 
 # Branch settings
 [context.production]
-  command = "echo 'Deploying production site'"
+  command = "npm run build"
+  environment = { NODE_ENV = "production" }
 
 [context.deploy-preview]
-  command = "echo 'Deploy preview build'"
+  command = "npm run build"
+  environment = { NODE_ENV = "preview" }
 
 [context.branch-deploy]
   command = "echo 'Branch deploy build'"
 
+# API routes for database functions
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Admin dashboard access
+[[redirects]]
+  from = "/admin"
+  to = "/admin-dashboard.html"
+  status = 200
+
+# SPA redirect (keep last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -25,6 +41,7 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
 
 # Security headers
 [[headers]]
@@ -35,3 +52,5 @@
 # Basic build settings
 [build.environment]
   NODE_VERSION = "18"
+  # Enable Netlify DB (Neon integration)
+  NETLIFY_DATABASE_ENABLED = "true"

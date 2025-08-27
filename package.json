@@ -1,0 +1,31 @@
+{
+  "name": "ctv-prestige-construction",
+  "version": "1.0.0",
+  "description": "Professional Mobile Welding & Container Repair Services Website",
+  "main": "script.js",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Static site - no build required'",
+    "test": "./comprehensive-test.sh",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@netlify/neon": "^1.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "mobile-welding",
+    "container-repair",
+    "construction",
+    "florida",
+    "welding-services"
+  ],
+  "author": "CTV Prestige Construction",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JWKLINEHaCk3r/CTV-Prestige-Construction-.git"
+  }
+}

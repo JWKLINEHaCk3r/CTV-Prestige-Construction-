@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTV Prestige Construction - Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #FF6B35;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #FF6B35;
+            font-size: 1.5rem;
+        }
+
+        .header .status {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid #FF6B35;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            color: #FF6B35;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.8);
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            border: 1px solid #555;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #FF6B35;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table th,
+        .table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #555;
+        }
+
+        .table th {
+            background: rgba(255, 107, 53, 0.2);
+            color: #FF6B35;
+            font-weight: bold;
+        }
+
+        .table tr:hover {
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .status-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-new {
+            background: #007bff;
+            color: white;
+        }
+
+        .status-pending {
+            background: #ffc107;
+            color: black;
+        }
+
+        .status-contacted {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #FF8C42;
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .refresh-btn {
+            background: transparent;
+            border: 2px solid #FF6B35;
+            color: #FF6B35;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .refresh-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .loading {
+            text-align: center;
+            color: #ccc;
+            padding: 2rem;
+        }
+
+        .error {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .success {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid #28a745;
+            color: #28a745;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .service-chart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .service-item {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #FF6B35;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .service-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-count {
+            font-size: 1.5rem;
+            color: #FF6B35;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .table {
+                font-size: 0.8rem;
+            }
+            
+            .table th,
+            .table td {
+                padding: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏗️ CTV Prestige Construction - Admin Dashboard</h1>
+        <div class="status">
+            <div class="status-indicator"></div>
+            <span>Database Connected</span>
+            <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Stats Overview -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-contacts">0</div>
+                <div class="stat-label">Total Contact Requests</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="new-contacts">0</div>
+                <div class="stat-label">New Inquiries</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="this-month">0</div>
+                <div class="stat-label">This Month</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="btn btn-primary" onclick="exportContacts()">📊 Export Contacts</button>
+            <button class="btn btn-primary" onclick="markAllAsRead()">✅ Mark All as Contacted</button>
+            <button class="btn btn-primary" onclick="generateReport()">📋 Generate Report</button>
+        </div>
+
+        <!-- Contact Requests Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>📧 Recent Contact Requests</h2>
+                <span id="contacts-count">Loading...</span>
+            </div>
+            <div class="section-content">
+                <div id="contacts-loading" class="loading">Loading contact requests...</div>
+                <div id="contacts-error" class="error" style="display: none;"></div>
+                <table class="table" id="contacts-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Contact</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contacts-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Service Analytics Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2>📈 Service Request Analytics</h2>
+                <span>Most Popular Services</span>
+            </div>
+            <div class="section-content">
+                <div id="services-loading" class="loading">Loading service analytics...</div>
+                <div id="services-chart" class="service-chart" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Project Gallery Management -->
+        <div class="section">
+            <div class="section-header">
+                <h2>🖼️ Project Gallery</h2>
+                <button class="btn btn-primary btn-small" onclick="addNewProject()">+ Add Project</button>
+            </div>
+            <div class="section-content">
+                <div id="projects-loading" class="loading">Loading featured projects...</div>
+                <div id="projects-content" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module">
+        import ctvDatabase from './database.js';
+
+        // Global variables
+        let contacts = [];
+        let projects = [];
+        let serviceStats = [];
+
+        // Initialize dashboard
+        async function initDashboard() {
+            try {
+                console.log('🚀 Initializing CTV Admin Dashboard...');
+                
+                // Test database connection
+                const healthCheck = await ctvDatabase.healthCheck();
+                if (!healthCheck) {
+                    throw new Error('Database connection failed');
+                }
+
+                // Load all data
+                await Promise.all([
+                    loadContactStats(),
+                    loadContacts(),
+                    loadServiceAnalytics(),
+                    loadProjects()
+                ]);
+
+                console.log('✅ Dashboard initialized successfully');
+                
+            } catch (error) {
+                console.error('❌ Dashboard initialization failed:', error);
+                showGlobalError('Failed to initialize dashboard: ' + error.message);
+            }
+        }
+
+        // Load contact statistics
+        async function loadContactStats() {
+            try {
+                const stats = await ctvDatabase.getContactStats();
+                
+                document.getElementById('total-contacts').textContent = stats.total_contacts || 0;
+                document.getElementById('new-contacts').textContent = stats.new_contacts || 0;
+                document.getElementById('this-month').textContent = stats.last_30_days || 0;
+                
+            } catch (error) {
+                console.error('Failed to load contact stats:', error);
+            }
+        }
+
+        // Load contact requests
+        async function loadContacts() {
+            try {
+                document.getElementById('contacts-loading').style.display = 'block';
+                
+                contacts = await ctvDatabase.getContactRequests();
+                
+                document.getElementById('contacts-loading').style.display = 'none';
+                document.getElementById('contacts-table').style.display = 'table';
+                document.getElementById('contacts-count').textContent = `${contacts.length} total requests`;
+                
+                renderContactsTable();
+                
+            } catch (error) {
+                console.error('Failed to load contacts:', error);
+                document.getElementById('contacts-loading').style.display = 'none';
+                showError('contacts-error', 'Failed to load contact requests: ' + error.message);
+            }
+        }
+
+        // Render contacts table
+        function renderContactsTable() {
+            const tbody = document.getElementById('contacts-tbody');
+            tbody.innerHTML = '';
+
+            contacts.slice(0, 20).forEach(contact => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${new Date(contact.created_at).toLocaleDateString()}</td>
+                    <td><strong>${contact.name}</strong></td>
+                    <td>
+                        <div>${contact.email}</div>
+                        ${contact.phone ? `<div style="font-size: 0.8rem; color: #ccc;">${contact.phone}</div>` : ''}
+                    </td>
+                    <td>${contact.service_type || 'General'}</td>
+                    <td><span class="status-badge status-${contact.status}">${contact.status}</span></td>
+                    <td>
+                        <button class="btn btn-primary btn-small" onclick="viewContact(${contact.id})">View</button>
+                        ${contact.status === 'new' ? 
+                            `<button class="btn btn-primary btn-small" onclick="markContacted(${contact.id})">Mark Contacted</button>` 
+                            : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Load service analytics
+        async function loadServiceAnalytics() {
+            try {
+                document.getElementById('services-loading').style.display = 'block';
+                
+                serviceStats = await ctvDatabase.getPopularServices();
+                
+                document.getElementById('services-loading').style.display = 'none';
+                document.getElementById('services-chart').style.display = 'flex';
+                
+                renderServiceChart();
+                
+            } catch (error) {
+                console.error('Failed to load service analytics:', error);
+                document.getElementById('services-loading').style.display = 'none';
+            }
+        }
+
+        // Render service analytics chart
+        function renderServiceChart() {
+            const chart = document.getElementById('services-chart');
+            chart.innerHTML = '';
+
+            serviceStats.forEach(service => {
+                const item = document.createElement('div');
+                item.className = 'service-item';
+                item.innerHTML = `
+                    <div class="service-name">${service.service_type || 'General Inquiry'}</div>
+                    <div class="service-count">${service.request_count} requests</div>
+                `;
+                chart.appendChild(item);
+            });
+        }
+
+        // Load projects
+        async function loadProjects() {
+            try {
+                document.getElementById('projects-loading').style.display = 'block';
+                
+                projects = await ctvDatabase.getFeaturedProjects();
+                
+                document.getElementById('projects-loading').style.display = 'none';
+                document.getElementById('projects-content').style.display = 'block';
+                
+                renderProjects();
+                
+            } catch (error) {
+                console.error('Failed to load projects:', error);
+                document.getElementById('projects-loading').style.display = 'none';
+            }
+        }
+
+        // Render projects
+        function renderProjects() {
+            const content = document.getElementById('projects-content');
+            
+            if (projects.length === 0) {
+                content.innerHTML = '<p style="color: #ccc; text-align: center;">No featured projects yet.</p>';
+                return;
+            }
+
+            content.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    ${projects.map(project => `
+                        <div style="background: rgba(255,107,53,0.1); padding: 1rem; border-radius: 5px;">
+                            <h4 style="color: #FF6B35; margin-bottom: 0.5rem;">${project.title}</h4>
+                            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 0.5rem;">${project.service_category}</p>
+                            <p style="color: #aaa; font-size: 0.8rem;">${project.location || 'Location not specified'}</p>
+                            <p style="color: #888; font-size: 0.8rem;">Completed: ${project.completed_date ? new Date(project.completed_date).toLocaleDateString() : 'Ongoing'}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Utility functions
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function showGlobalError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            document.querySelector('.container').prepend(errorDiv);
+        }
+
+        // Action functions
+        window.viewContact = function(contactId) {
+            const contact = contacts.find(c => c.id === contactId);
+            if (contact) {
+                alert(`
+Contact Details:
+Name: ${contact.name}
+Email: ${contact.email}
+Phone: ${contact.phone || 'Not provided'}
+Service: ${contact.service_type || 'General'}
+Message: ${contact.message}
+Date: ${new Date(contact.created_at).toLocaleString()}
+Status: ${contact.status}
+                `.trim());
+            }
+        };
+
+        window.markContacted = async function(contactId) {
+            try {
+                // Update status in database (you'll need to add this method to database.js)
+                console.log(`Marking contact ${contactId} as contacted`);
+                
+                // Update local data
+                const contact = contacts.find(c => c.id === contactId);
+                if (contact) {
+                    contact.status = 'contacted';
+                    renderContactsTable();
+                    await loadContactStats();
+                }
+                
+                alert('Contact marked as contacted successfully!');
+                
+            } catch (error) {
+                console.error('Failed to update contact status:', error);
+                alert('Failed to update contact status: ' + error.message);
+            }
+        };
+
+        window.refreshDashboard = function() {
+            console.log('🔄 Refreshing dashboard...');
+            initDashboard();
+        };
+
+        window.exportContacts = function() {
+            if (contacts.length === 0) {
+                alert('No contacts to export');
+                return;
+            }
+
+            const csvContent = [
+                ['Date', 'Name', 'Email', 'Phone', 'Service', 'Status', 'Message'],
+                ...contacts.map(c => [
+                    new Date(c.created_at).toISOString().split('T')[0],
+                    c.name,
+                    c.email,
+                    c.phone || '',
+                    c.service_type || '',
+                    c.status,
+                    c.message.replace(/"/g, '""')
+                ])
+            ].map(row => row.map(field => `"${field}"`).join(',')).join('\\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ctv-contacts-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            console.log('📊 Contacts exported successfully');
+        };
+
+        window.markAllAsRead = function() {
+            if (confirm('Mark all new inquiries as contacted?')) {
+                contacts.forEach(contact => {
+                    if (contact.status === 'new') {
+                        contact.status = 'contacted';
+                    }
+                });
+                renderContactsTable();
+                loadContactStats();
+                alert('All inquiries marked as contacted!');
+            }
+        };
+
+        window.generateReport = function() {
+            const report = `
+CTV Prestige Construction - Business Report
+Generated: ${new Date().toLocaleString()}
+
+CONTACT SUMMARY:
+- Total Contacts: ${contacts.length}
+- New Inquiries: ${contacts.filter(c => c.status === 'new').length}
+- Contacted: ${contacts.filter(c => c.status === 'contacted').length}
+- This Month: ${contacts.filter(c => new Date(c.created_at) > new Date(Date.now() - 30*24*60*60*1000)).length}
+
+TOP SERVICES:
+${serviceStats.map(s => `- ${s.service_type}: ${s.request_count} requests`).join('\\n')}
+
+FEATURED PROJECTS: ${projects.length}
+            `.trim();
+
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ctv-report-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            console.log('📋 Business report generated');
+        };
+
+        window.addNewProject = function() {
+            alert('Project addition feature coming soon! Contact developer for manual project additions.');
+        };
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

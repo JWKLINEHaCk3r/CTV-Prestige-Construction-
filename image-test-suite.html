@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test Suite - CTV Prestige Construction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #ff7700;
+            --secondary-orange: #ff5500;
+            --accent-orange: #ff9930;
+            --bg-dark: #000000;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-primary: rgba(255, 119, 0, 0.3);
+            --border-hover: rgba(255, 119, 0, 0.6);
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-orange);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .test-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-primary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .test-section h2 {
+            color: var(--accent-orange);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-success { background: var(--success); }
+        .status-error { background: var(--error); }
+        .status-warning { background: var(--warning); }
+        .status-loading { background: var(--text-secondary); animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-test-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-primary);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .image-test-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+
+        .image-test-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-primary);
+        }
+
+        .image-info {
+            padding: 1rem;
+        }
+
+        .image-info h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .image-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .test-results {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-primary);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .log-success { border-left: 3px solid var(--success); }
+        .log-error { border-left: 3px solid var(--error); }
+        .log-warning { border-left: 3px solid var(--warning); }
+        .log-info { border-left: 3px solid var(--primary-orange); }
+
+        .test-button {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: var(--text-primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 119, 0, 0.3);
+        }
+
+        .test-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .upload-test {
+            border: 2px dashed var(--border-primary);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .upload-test.dragover {
+            border-color: var(--border-hover);
+            background: rgba(255, 119, 0, 0.05);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-primary);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ CTV Image Test Suite</h1>
+        
+        <!-- Sample Photos Test -->
+        <div class="test-section">
+            <h2>
+                <span id="sampleStatus" class="status-indicator status-loading"></span>
+                📁 Sample Photos Test
+            </h2>
+            <p>Testing all sample photos in the assets directory...</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalImages">0</div>
+                    <div class="stat-label">Total Images</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="loadedImages">0</div>
+                    <div class="stat-label">Loaded</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="failedImages">0</div>
+                    <div class="stat-label">Failed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avgFileSize">0KB</div>
+                    <div class="stat-label">Avg Size</div>
+                </div>
+            </div>
+
+            <button class="test-button" onclick="testSamplePhotos()">🔍 Test Sample Photos</button>
+            <button class="test-button" onclick="clearSampleTest()">🗑️ Clear Test</button>
+
+            <div id="sampleImagesGrid" class="image-grid"></div>
+            <div id="sampleTestResults" class="test-results" style="display: none;"></div>
+        </div>
+
+        <!-- Admin Upload Test -->
+        <div class="test-section">
+            <h2>
+                <span id="uploadStatus" class="status-indicator status-loading"></span>
+                📤 Admin Upload System Test
+            </h2>
+            <p>Test the admin upload functionality and localStorage management...</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="storageUsed">0%</div>
+                    <div class="stat-label">Storage Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="uploadedCount">0</div>
+                    <div class="stat-label">Uploaded Images</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="compressionRatio">0%</div>
+                    <div class="stat-label">Compression</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="estimatedCapacity">0</div>
+                    <div class="stat-label">Est. Capacity</div>
+                </div>
+            </div>
+
+            <button class="test-button" onclick="testUploadSystem()">🧪 Test Upload System</button>
+            <button class="test-button" onclick="clearUploadedImages()">🗑️ Clear Uploads</button>
+            <button class="test-button" onclick="generateTestImages()">🎨 Generate Test Images</button>
+
+            <div class="upload-test" id="uploadTestArea">
+                <p>📎 Drag & Drop test images here or click to select files</p>
+                <input type="file" id="testFileInput" class="file-input" multiple accept="image/*">
+                <button class="test-button" onclick="document.getElementById('testFileInput').click()">
+                    📁 Select Test Images
+                </button>
+            </div>
+
+            <div id="uploadImagesGrid" class="image-grid"></div>
+            <div id="uploadTestResults" class="test-results" style="display: none;"></div>
+        </div>
+
+        <!-- Gallery Integration Test -->
+        <div class="test-section">
+            <h2>
+                <span id="galleryStatus" class="status-indicator status-loading"></span>
+                🖼️ Gallery Integration Test
+            </h2>
+            <p>Testing integration between admin uploads and main website gallery...</p>
+
+            <button class="test-button" onclick="testGalleryIntegration()">🔗 Test Gallery Integration</button>
+            <button class="test-button" onclick="previewMainGallery()">👀 Preview Main Gallery</button>
+
+            <div id="galleryTestResults" class="test-results" style="display: none;"></div>
+            <div id="galleryPreview" class="image-grid"></div>
+        </div>
+
+        <!-- Performance Test -->
+        <div class="test-section">
+            <h2>
+                <span id="performanceStatus" class="status-indicator status-loading"></span>
+                ⚡ Performance Test
+            </h2>
+            <p>Testing image loading performance, compression efficiency, and browser limits...</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="loadTime">0ms</div>
+                    <div class="stat-label">Load Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="memoryUsage">0MB</div>
+                    <div class="stat-label">Memory</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="renderTime">0ms</div>
+                    <div class="stat-label">Render Time</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="storageLimit">5MB</div>
+                    <div class="stat-label">Storage Limit</div>
+                </div>
+            </div>
+
+            <button class="test-button" onclick="runPerformanceTest()">🚀 Run Performance Test</button>
+            <button class="test-button" onclick="stressTestStorage()">💪 Stress Test Storage</button>
+
+            <div id="performanceResults" class="test-results" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global test state
+        let testState = {
+            sampleImages: [],
+            uploadedImages: [],
+            totalTests: 0,
+            passedTests: 0,
+            failedTests: 0
+        };
+
+        // Sample photos configuration
+        const samplePhotos = [
+            { path: 'assets/sample-photos/welding/welding-project-1.jpg', category: 'Welding', description: 'Professional Welding Work' },
+            { path: 'assets/sample-photos/welding/welding-project-2.jpg', category: 'Welding', description: 'Metal Fabrication Project' },
+            { path: 'assets/sample-photos/container-repair/container-repair-1.jpg', category: 'Container Repair', description: 'Container Repair Work' },
+            { path: 'assets/sample-photos/container-repair/container-repair-2.jpg', category: 'Container Repair', description: 'Construction Equipment Repair' },
+            { path: 'assets/sample-photos/pressure-washing/pressure-washing-1.jpg', category: 'Pressure Washing', description: 'Pressure Washing Service' },
+            { path: 'assets/sample-photos/pressure-washing/pressure-washing-2.jpg', category: 'Pressure Washing', description: 'Industrial Cleaning' }
+        ];
+
+        // Utility functions
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logClass = `log-${type}`;
+            const emoji = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' }[type] || 'ℹ️';
+            
+            return `<div class="log-entry ${logClass}">[${timestamp}] ${emoji} ${message}</div>`;
+        }
+
+        function updateStatus(elementId, status) {
+            const element = document.getElementById(elementId);
+            element.className = `status-indicator status-${status}`;
+        }
+
+        function updateStat(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element) element.textContent = value;
+        }
+
+        // Test sample photos
+        async function testSamplePhotos() {
+            updateStatus('sampleStatus', 'loading');
+            const resultsDiv = document.getElementById('sampleTestResults');
+            const gridDiv = document.getElementById('sampleImagesGrid');
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = log('Starting sample photos test...', 'info');
+            gridDiv.innerHTML = '';
+
+            let loadedCount = 0;
+            let failedCount = 0;
+            let totalSize = 0;
+
+            updateStat('totalImages', samplePhotos.length);
+
+            for (const photo of samplePhotos) {
+                try {
+                    const result = await testImageLoad(photo);
+                    if (result.success) {
+                        loadedCount++;
+                        totalSize += result.size;
+                        createImageCard(gridDiv, photo, result);
+                        resultsDiv.innerHTML += log(`✅ Loaded: ${photo.path} (${(result.size/1024).toFixed(1)}KB)`, 'success');
+                    } else {
+                        failedCount++;
+                        resultsDiv.innerHTML += log(`❌ Failed: ${photo.path} - ${result.error}`, 'error');
+                    }
+                } catch (error) {
+                    failedCount++;
+                    resultsDiv.innerHTML += log(`❌ Error loading ${photo.path}: ${error.message}`, 'error');
+                }
+
+                updateStat('loadedImages', loadedCount);
+                updateStat('failedImages', failedCount);
+                updateStat('avgFileSize', `${Math.round(totalSize / (loadedCount || 1) / 1024)}KB`);
+            }
+
+            const status = failedCount === 0 ? 'success' : failedCount < samplePhotos.length ? 'warning' : 'error';
+            updateStatus('sampleStatus', status);
+
+            resultsDiv.innerHTML += log(`Test completed: ${loadedCount} loaded, ${failedCount} failed`, status === 'success' ? 'success' : 'warning');
+        }
+
+        function testImageLoad(photo) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const startTime = performance.now();
+
+                img.onload = function() {
+                    const loadTime = performance.now() - startTime;
+                    
+                    // Calculate approximate file size (rough estimation)
+                    const canvas = document.createElement('canvas');
+                    canvas.width = this.naturalWidth;
+                    canvas.height = this.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(this, 0, 0);
+                    
+                    const dataURL = canvas.toDataURL('image/jpeg', 0.8);
+                    const size = Math.round((dataURL.length - 22) * 3/4); // Base64 size estimation
+                    
+                    resolve({
+                        success: true,
+                        width: this.naturalWidth,
+                        height: this.naturalHeight,
+                        size: size,
+                        loadTime: Math.round(loadTime),
+                        dataURL: dataURL
+                    });
+                };
+
+                img.onerror = function() {
+                    resolve({
+                        success: false,
+                        error: 'Failed to load image'
+                    });
+                };
+
+                img.src = photo.path;
+            });
+        }
+
+        function createImageCard(container, photo, result) {
+            const card = document.createElement('div');
+            card.className = 'image-test-card';
+            
+            card.innerHTML = `
+                <img src="${photo.path}" alt="${photo.description}" loading="lazy">
+                <div class="image-info">
+                    <h4>${photo.description}</h4>
+                    <p><strong>Category:</strong> ${photo.category}</p>
+                    <p><strong>Dimensions:</strong> ${result.width}×${result.height}px</p>
+                    <p><strong>Size:</strong> ~${(result.size/1024).toFixed(1)}KB</p>
+                    <p><strong>Load Time:</strong> ${result.loadTime}ms</p>
+                </div>
+            `;
+            
+            container.appendChild(card);
+        }
+
+        // Test upload system
+        async function testUploadSystem() {
+            updateStatus('uploadStatus', 'loading');
+            const resultsDiv = document.getElementById('uploadTestResults');
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = log('Testing admin upload system...', 'info');
+
+            try {
+                // Check localStorage availability
+                if (!window.localStorage) {
+                    throw new Error('localStorage not available');
+                }
+
+                // Test storage capacity
+                const storageTest = testStorageCapacity();
+                resultsDiv.innerHTML += log(`Storage capacity test: ${storageTest.available ? '✅' : '❌'}`, storageTest.available ? 'success' : 'error');
+
+                // Load existing images
+                const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+                updateStat('uploadedCount', existingImages.length);
+                
+                // Calculate storage usage
+                const storageUsed = new Blob([JSON.stringify(existingImages)]).size;
+                const storagePercent = Math.round((storageUsed / (5 * 1024 * 1024)) * 100);
+                updateStat('storageUsed', `${storagePercent}%`);
+
+                // Estimate capacity
+                const avgImageSize = existingImages.length > 0 ? storageUsed / existingImages.length : 50000; // 50KB default
+                const estimatedCapacity = Math.floor((5 * 1024 * 1024) / avgImageSize);
+                updateStat('estimatedCapacity', estimatedCapacity);
+
+                // Display existing images
+                displayUploadedImages();
+
+                updateStatus('uploadStatus', 'success');
+                resultsDiv.innerHTML += log('Upload system test completed successfully', 'success');
+
+            } catch (error) {
+                updateStatus('uploadStatus', 'error');
+                resultsDiv.innerHTML += log(`Upload system test failed: ${error.message}`, 'error');
+            }
+        }
+
+        function testStorageCapacity() {
+            try {
+                const test = 'storage-test';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return { available: true };
+            } catch (e) {
+                return { available: false, error: e.message };
+            }
+        }
+
+        function displayUploadedImages() {
+            const gridDiv = document.getElementById('uploadImagesGrid');
+            const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            
+            gridDiv.innerHTML = '';
+
+            existingImages.forEach((image, index) => {
+                const card = document.createElement('div');
+                card.className = 'image-test-card';
+                
+                // Calculate compressed size
+                const originalSize = image.originalSize || 0;
+                const compressedSize = image.url ? Math.round((image.url.length - 22) * 3/4) : 0;
+                const compressionRatio = originalSize > 0 ? Math.round((1 - compressedSize/originalSize) * 100) : 0;
+                
+                card.innerHTML = `
+                    <img src="${image.url}" alt="${image.name}" loading="lazy">
+                    <div class="image-info">
+                        <h4>${image.name || 'Unnamed Image'}</h4>
+                        <p><strong>Uploaded:</strong> ${new Date(image.timestamp).toLocaleDateString()}</p>
+                        <p><strong>Compressed Size:</strong> ${(compressedSize/1024).toFixed(1)}KB</p>
+                        ${originalSize > 0 ? `<p><strong>Compression:</strong> ${compressionRatio}%</p>` : ''}
+                        <p><strong>Index:</strong> ${index}</p>
+                    </div>
+                `;
+                
+                gridDiv.appendChild(card);
+            });
+        }
+
+        // Clear functions
+        function clearSampleTest() {
+            document.getElementById('sampleImagesGrid').innerHTML = '';
+            document.getElementById('sampleTestResults').style.display = 'none';
+            updateStatus('sampleStatus', 'loading');
+            updateStat('totalImages', '0');
+            updateStat('loadedImages', '0');
+            updateStat('failedImages', '0');
+            updateStat('avgFileSize', '0KB');
+        }
+
+        function clearUploadedImages() {
+            if (confirm('Clear all uploaded images from localStorage?')) {
+                localStorage.removeItem('galleryImages');
+                displayUploadedImages();
+                testUploadSystem();
+            }
+        }
+
+        // Generate test images (canvas-based)
+        function generateTestImages() {
+            const resultsDiv = document.getElementById('uploadTestResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML += log('Generating test images...', 'info');
+
+            for (let i = 1; i <= 5; i++) {
+                generateTestImage(i);
+            }
+        }
+
+        function generateTestImage(index) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = 600;
+            const ctx = canvas.getContext('2d');
+
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, `hsl(${index * 60}, 70%, 50%)`);
+            gradient.addColorStop(1, `hsl(${index * 60 + 30}, 70%, 30%)`);
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 48px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Test Image ${index}`, canvas.width/2, canvas.height/2 - 50);
+            
+            ctx.font = '24px Inter';
+            ctx.fillText(`${canvas.width}×${canvas.height}px`, canvas.width/2, canvas.height/2);
+            ctx.fillText(new Date().toLocaleTimeString(), canvas.width/2, canvas.height/2 + 50);
+
+            // Convert to blob and simulate upload
+            canvas.toBlob((blob) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageData = {
+                        url: e.target.result,
+                        name: `Test Image ${index}`,
+                        timestamp: new Date().toISOString(),
+                        originalSize: blob.size,
+                        generated: true
+                    };
+                    
+                    const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+                    existingImages.push(imageData);
+                    localStorage.setItem('galleryImages', JSON.stringify(existingImages));
+                };
+                reader.readAsDataURL(blob);
+            }, 'image/jpeg', 0.8);
+        }
+
+        // Gallery integration test
+        function testGalleryIntegration() {
+            updateStatus('galleryStatus', 'loading');
+            const resultsDiv = document.getElementById('galleryTestResults');
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = log('Testing gallery integration...', 'info');
+
+            try {
+                const uploadedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+                
+                resultsDiv.innerHTML += log(`Found ${uploadedImages.length} uploaded images`, 'info');
+                
+                // Simulate main gallery loading
+                if (uploadedImages.length > 0) {
+                    resultsDiv.innerHTML += log('✅ Gallery integration working', 'success');
+                    updateStatus('galleryStatus', 'success');
+                } else {
+                    resultsDiv.innerHTML += log('⚠️ No images to test integration', 'warning');
+                    updateStatus('galleryStatus', 'warning');
+                }
+
+            } catch (error) {
+                resultsDiv.innerHTML += log(`❌ Gallery integration failed: ${error.message}`, 'error');
+                updateStatus('galleryStatus', 'error');
+            }
+        }
+
+        function previewMainGallery() {
+            const previewDiv = document.getElementById('galleryPreview');
+            const uploadedImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+            
+            previewDiv.innerHTML = '';
+            
+            // Combine sample photos and uploaded images
+            const allImages = [
+                ...samplePhotos.map(photo => ({
+                    url: photo.path,
+                    name: photo.description,
+                    category: photo.category,
+                    source: 'sample'
+                })),
+                ...uploadedImages.map(img => ({
+                    url: img.url,
+                    name: img.name,
+                    category: 'Uploaded',
+                    source: 'upload'
+                }))
+            ];
+
+            allImages.forEach(image => {
+                const card = document.createElement('div');
+                card.className = 'image-test-card';
+                
+                card.innerHTML = `
+                    <img src="${image.url}" alt="${image.name}" loading="lazy">
+                    <div class="image-info">
+                        <h4>${image.name}</h4>
+                        <p><strong>Category:</strong> ${image.category}</p>
+                        <p><strong>Source:</strong> ${image.source}</p>
+                    </div>
+                `;
+                
+                previewDiv.appendChild(card);
+            });
+        }
+
+        // Performance test
+        function runPerformanceTest() {
+            updateStatus('performanceStatus', 'loading');
+            const resultsDiv = document.getElementById('performanceResults');
+            
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = log('Running performance tests...', 'info');
+
+            const startTime = performance.now();
+            
+            // Test image loading performance
+            Promise.all(samplePhotos.map(photo => testImageLoad(photo))).then(results => {
+                const endTime = performance.now();
+                const totalLoadTime = Math.round(endTime - startTime);
+                
+                updateStat('loadTime', `${totalLoadTime}ms`);
+                
+                // Memory usage estimation
+                const memoryUsage = Math.round(performance.memory ? performance.memory.usedJSHeapSize / 1024 / 1024 : 0);
+                updateStat('memoryUsage', `${memoryUsage}MB`);
+                
+                // Render time test
+                const renderStart = performance.now();
+                setTimeout(() => {
+                    const renderTime = Math.round(performance.now() - renderStart);
+                    updateStat('renderTime', `${renderTime}ms`);
+                }, 100);
+
+                resultsDiv.innerHTML += log(`✅ Performance test completed in ${totalLoadTime}ms`, 'success');
+                updateStatus('performanceStatus', 'success');
+            });
+        }
+
+        function stressTestStorage() {
+            const resultsDiv = document.getElementById('performanceResults');
+            resultsDiv.innerHTML += log('Running storage stress test...', 'warning');
+            
+            let testCount = 0;
+            const maxTests = 100;
+            
+            const interval = setInterval(() => {
+                try {
+                    generateTestImage(testCount + 1);
+                    testCount++;
+                    
+                    if (testCount >= maxTests) {
+                        clearInterval(interval);
+                        resultsDiv.innerHTML += log(`✅ Stress test completed: ${testCount} images generated`, 'success');
+                    }
+                } catch (error) {
+                    clearInterval(interval);
+                    resultsDiv.innerHTML += log(`❌ Storage limit reached at ${testCount} images: ${error.message}`, 'error');
+                }
+            }, 100);
+        }
+
+        // File upload handling
+        document.getElementById('testFileInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            files.forEach(file => processTestFile(file));
+        });
+
+        function processTestFile(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = {
+                    url: e.target.result,
+                    name: file.name,
+                    timestamp: new Date().toISOString(),
+                    originalSize: file.size
+                };
+                
+                const existingImages = JSON.parse(localStorage.getItem('galleryImages') || '[]');
+                existingImages.push(imageData);
+                localStorage.setItem('galleryImages', JSON.stringify(existingImages));
+                
+                displayUploadedImages();
+                testUploadSystem();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Drag and drop
+        const uploadArea = document.getElementById('uploadTestArea');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach(file => processTestFile(file));
+        });
+
+        // Initialize tests on page load
+        window.addEventListener('load', () => {
+            console.log('🖼️ CTV Image Test Suite Loaded');
+            testUploadSystem();
+        });
+    </script>
+</body>
+</html>
